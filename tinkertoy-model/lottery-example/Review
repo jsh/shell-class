@@ -1,0 +1,33 @@
+Let's look at what we've done:
+
+Written a program.
+Fast.
+The editor came last.
+Each step did something.
+Each step, we could see the results.
+
+Some conventional things:
+Control flow. Variables.
+
+Some not-so-conventional:
+Pipes. Such a big deal.
+Subshells called almost in passing.
+These are sort-of unnamed functions -- "closures," if you want to get all computer-sciency.
+
+Some things are unimportant:
+Syntax. You'll catch on. Some of it's historical and crappy.
+Built-ins -- variables, like $RANDOM, and built-ins, like echo.
+
+Some things are important:
+Writing shell programs is like Tinkertoys, or Legos.
+Pieces aren't libraries or toolkits, they're programs.
+The fundamental datum is a file.
+What's a file? A sequence of lines. What's a line? A sequence of words.
+
+This is a gimme for von-Neumann-model programming: Shell scripts are files. Programs are data.
+
+We'll pause here. I'll come back to this example. We're not done with it. Not even close.
+
+
+
+
