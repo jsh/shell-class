@@ -84,8 +84,6 @@ if false; echo hello, world; fi
 ls -l /bin/date
 
 # If it's a program, where is it?
-ls /bin/bash
-which bash
 
 # Why is just naming it enough?
 echo $PATH
@@ -110,3 +108,6 @@ grep script /etc/magic
 # What else is in the shell?
 man bash
 man bash | wc -l
+
+# The world's simplest shell
+while read next_line; do eval $next_line; done
