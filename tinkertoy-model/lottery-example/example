@@ -1,4 +1,5 @@
 # We know how to get the shell to talk to us
+echo hello, world
 echo {1..49}
 echo $RANDOM
 
