@@ -23,10 +23,10 @@ pstree
 # And where is the "You Are Here" sign?
 # signWe're running bash
 echo $$
-ps ajax
+ps a
 bash
 echo $$
-ps ajax
+ps a
 
 # The "$$" is the process-id (pid).
 # Like $i and $RANDOM in the Lottery example, the leading '$' marks it as a variable.
@@ -36,7 +36,7 @@ ps ajax
 # Let's do it again
 bash
 echo $$
-ps ajax
+ps a
 pstree
 exit
 pstree
@@ -105,9 +105,23 @@ od -xc $(file /usr/bin/* | grep script | head -1 | sed 's/:.*//')
 od -xc $(file /usr/bin/* | grep script | head -1 | sed 's/:.*//') | head
 grep script /etc/magic
 
-# What else is in the shell?
+# What else does the shell program do?
 man bash
 man bash | wc -l
 
+# There are other shells
+man tcsh
+man dash
+man zsh
+tcsh
+ps -a
+
 # The world's simplest shell
 while read next_line; do eval $next_line; done
+
+# When you do write your own shell, how's the system know to use it?
+echo $LOGNAME
+grep $LOGNAME /etc/passwd
+
+# How can you change your shell?
+chsh

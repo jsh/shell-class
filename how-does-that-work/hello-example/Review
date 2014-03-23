@@ -1,4 +1,4 @@
-You now understand what a shell is.
+You understand what a shell is.
 
 A shell's a program that reads a line at a time and does it.
 
@@ -13,3 +13,5 @@ Lots of people do.
 	One week was his sh
 	My mother created jsh in 9 months.
 
+You know how this fits into the OS
+  OS = File tree + Process tree
