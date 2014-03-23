@@ -1,4 +1,7 @@
 # Let's start again
+"Dimidium facti qui coepit habet: sapere aude!" (He who has begun is half done: dare to know!) - Horace.
+
+
 
 echo hello, world
 
@@ -9,6 +12,9 @@ chmod +x hello
 
 # but wait. How's that work?
 # understanding the answer unlocks a lot
+
+# Warning! Dangerous bends ahead.
+http://books.google.com/books?id=VDGifaOQogcC&pg=SA1-PA5#v=onepage&q&f=false
 
 # Operating systems = File Trees + Process Trees
 # a digression
@@ -118,6 +124,9 @@ ps -a
 
 # The world's simplest shell
 while read next_line; do eval $next_line; done
+export prompt='>'
+printf $prompt; while read next_line; do printf $prompt; eval $next_line; done
+printf "$prompt "; while read next_line; do printf "$prompt "; eval $next_line; done
 
 # When you do write your own shell, how's the system know to use it?
 echo $LOGNAME
