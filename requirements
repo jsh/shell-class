@@ -6,6 +6,8 @@ Before you take this class, you need to
 
 - be running sh, dash, bash, ksh, zsh, or some other POSIX-y shell.
 
+	I'll be using bash 4+
+
 - program. I don't mean "be a kernel hacker," but I don't mean "click icons" or "write HTML."
 
 - get a free, GitHub account and figure out how to put stuff up there.

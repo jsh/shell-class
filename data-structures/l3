@@ -1,0 +1,2 @@
+n="0 10 20 30 40"
+for i in $n; do echo $i; done
