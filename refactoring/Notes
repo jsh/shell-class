@@ -1,2 +1,7 @@
 Okay, let's refactor our lottery-pick script
 to see what we can learn.
+
+(1) Let's split it into two programs.
+Whoops! That doesn't work. Why?
+
+(2)
