@@ -1,0 +1,7 @@
+#!/bin/bash -eu
+# Generate a Romanian-lottery pick
+#   three sets of half-a-dozen numbers between 1 & 49
+
+for i in {1..3}; do
+  onepick
+done
