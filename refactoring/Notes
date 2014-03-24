@@ -16,3 +16,7 @@ cd
 Whoops. That doesn't work either. Why?
 
 (5) We can fix that by saying "look in the same directory."
+
+That's looking a little complex. Is there another way?
+
+(6) Let's start again and use a function.

@@ -2,7 +2,7 @@
 # Generate a Romanian-lottery pick
 #   three sets of half-a-dozen numbers between 1 & 49
 
-for i in {1..3}; do
+onepick() {
   echo $(
     for i in {1..49}; do
       echo $RANDOM $i
@@ -11,4 +11,8 @@ for i in {1..3}; do
     awk '{print $2}' |
     head -6
   )
+}
+
+for i in {1..3}; do
+  onepick
 done
