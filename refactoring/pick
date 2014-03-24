@@ -2,7 +2,7 @@
 # Generate a Romanian-lottery pick
 #   three sets of half-a-dozen numbers between 1 & 49
 
-PATH+=:
+PATH+=:$( dirname $(readlink -f $0) )
 
 for i in {1..3}; do
   onepick
