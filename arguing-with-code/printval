@@ -1,0 +1,7 @@
+#!/bin/bash
+
+printval() {
+  echo "$1 is '${!1}'"
+}
+
+[[ "$debug" ]] && printval x
