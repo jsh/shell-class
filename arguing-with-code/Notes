@@ -14,3 +14,17 @@ echo x is $x
 echo x is "$x"  # doesn't work
 echo x is '$x'  # really doesn't work
 echo "x is '$x'" # aha!
+
+
+Pointless digression.
+
+You can do some fancy stuff here.
+
+foobar=69
+p_foobar=foobar    # pointer-to-foobar
+echo $p_foobar
+echo ${p_foobar}   # pointless braces
+echo ${!p_foobar}  # pointered braces
+
+See printval.
+Oh good. Pointers in C aren't confusing enough.
