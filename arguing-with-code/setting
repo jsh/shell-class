@@ -1,0 +1,8 @@
+#!/bin/bash
+
+val=$1
+if [[ $val < 3 ]]; then
+  echo too small!!
+fi
+
+echo done

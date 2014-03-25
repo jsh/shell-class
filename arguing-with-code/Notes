@@ -28,3 +28,19 @@ echo ${!p_foobar}  # pointered braces
 
 See printval.
 Oh good. Pointers in C aren't confusing enough.
+
+Good to know they're there, but is there a better way?
+Sure. See setting.
+
+setting 10
+setting 1
+bash -x setting
+
+setting
+bash -x setting
+bash -ux setting
+
+Note that this also protects you from tpyos.
+Can also put it in the shebang line
+use set -x/+x for finer-grained debugging
+
