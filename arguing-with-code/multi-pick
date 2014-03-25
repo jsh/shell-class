@@ -1,6 +1,10 @@
-#!/bin/bash -eu
+#!/bin/bash
 
 PATH+=:
+
+npicks=$1
+echo "npicks is '$npicks'"
+exit 0
 
 for i in {1..5}; do
   pick
