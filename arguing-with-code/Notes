@@ -1,10 +1,13 @@
 Next, let's get greedy and buy a lot of lottery tickets.
 
-But what if we want the number we're picking to be an arg?
+The first, obvious thing to do is make the number we pick an argument.
+This is a good excuse to introduce argument processing and parsing,
+but a better excuse to explore how we can tell if the changes we're making are what we want.
 
-Let's explore argument parsing a little.
+So, let's just look at the args: not use them, mind -- just look.
 
-First, let's just look at the args, nothing else.  Here's a simple one.
+
+The first arg is $1, so we'll want to print it -- "printf-style debugging."
 Note how we print.
 
 x=3
