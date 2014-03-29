@@ -1,0 +1,16 @@
+#!/bin/bash -eu
+# Generate a Romanian-lottery pick
+#   three sets of half-a-dozen numbers between 1 & 49
+
+onepick() {
+    for i in {1..49}; do
+      echo $RANDOM $i
+    done |
+    sort -n |
+    awk '{print $2}' |
+    head -6
+}
+
+for i in {1..3}; do
+  echo $(onepick)
+done
