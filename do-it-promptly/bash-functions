@@ -1,9 +1,3 @@
-# functions
-
-# put the current directory into the X window decoration 
-xpwd() {
-  echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
-}
 
 # set up a pair of prompts -- one for success, one for failure
 export _r="\[\e[01;31m\]"
@@ -16,7 +10,6 @@ prompt() {
   else
     PS1="\u@\h:\w${_r}\$${_n} "
   fi
-  xpwd
 }
 
 export PROMPT_COMMAND=prompt
@@ -27,25 +20,4 @@ sprompt() {
   else
     PS1="\u@\h:\W${_r}\$${_n} "
   fi
-  xpwd
-}
-
-
-cdjob() {
-  local d
-
-  : ${1:?"usage $FUNCNAME %N"}
-
-  d=$(jobs $1 | perl -lane 'print "cd $1" if m/.*\(wd: (.*)\).*/')
-  test "$d" && eval $d
-}
-
-which() {
-  type --path "$@"
-}
-
-git-startup() {
-  git init ${1:?"usage: $FUNCNAME <dir>"}
-  cd $1
-  git flow init -d
 }
