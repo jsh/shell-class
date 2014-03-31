@@ -1,0 +1,9 @@
+#!/bin/bash -eu
+
+die() { echo ${FUNCNAME[1]}:${BASH_LINENO[0]}: "$@"; exit 1; }
+
+myfunc() {
+	echo hello
+	die "goodbye"
+	echo "huh?"
+}
