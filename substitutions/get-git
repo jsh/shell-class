@@ -1,0 +1,15 @@
+git clone git://github.com/git/git.git git_1
+cp -a git_1 git_2
+cd git_1/contrib/mw-to-git
+pushd ${PWD/_1/_2}
+git checkout v1.8.4
+pushd
+dirs
+echo ~-
+echo ~+
+pushd /tmp
+dirs
+echo ~0 ~1 ~2
+pushd; pushd
+cd -
+cd -

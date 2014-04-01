@@ -1,0 +1,5 @@
+#!/bin/bash -eux
+
+for i in *.a; do
+  echo mv $i ${i/.a/.b}
+done
