@@ -1,0 +1,709 @@
+Scripting
+=========
+
+If you're doing system administration, you'll have to read, write, and maintain scripts.  A lot.
+
+And unless you limit yourself to point-and-click work, you probably also spend a lot of time in terminal windows, where you're typing commands that are interpreted by the shell.  You're effectively typing interactive scripts.
+
+This book is not an introductory Unix survey.  The original title of this book was "Unix System Administration Made Hard."  If you need a primer on the shell, or on how to write scripts, this book is not the place to start.
+
+There are a lot of books and blogs that you can learn from. Just the man page for bash is over 80 pages. The *table of contents* for the Perl man pages is almost three times that size.
+
+With that out of the way, it's worth giving you some pragmatic information about what to learn, and some tips about usage that'll make your scripting life a little easier.
+
+
+
+Tools
+
+You'll have to learn bash and Perl, and at least not be scared of Python.  You might prefer other shells and other scripting languages, but so many scripts are in bash and Perl that they're just tools of the trade.  You'll also see Python often enough that you can't be afraid of tweaking a Python script.
+
+If you use bash as your default shell (as it is for Linux), then the language you use at a terminal session is the same as the language you'll see, and use, in most of your shell scripts.  The overlap with other POSIX-conforming shells, like sh, ash, and ksh (but *not* csh or tcsh) is big.   We'll talk about bash here, and assume that if you're using a different POSIX shell you can find work-arounds for anything that doesn't quite work.
+
+If you want to read or write Perl scripts, but don't know Perl, O'Reilly's "Learning Perl" is a great place to start.  If you don't want to write them, you'd still be crazy not to learn enough to use Perl in one-liners, on the command line,  As we'll show, it's useful.
+
+Other tools?  You'll want to know a text editor, so you can write shell scripts.  Duh.  But if you don't know one now, stop reading this book and go learn. 
+
+- Awk.  We don't write awk scripts anymore, but you'll see awk used in scripts, and some of them will be yours.
+
+- Sed.   Actually, you don't need to ever use sed anymore -- Perl is a better substitute -- but you'll see it in too many scripts to count.
+
+- Sed is a good excuse to say you have to learn regular expressions (regexes).  Have to.  You also have to learn them for Perl, and for egrep, and for vi (if you happen to like vi), and for ... oh, everything in Unix.  If you were a computer science major, you probably think regexes are no big deal.  If you weren't, take the time to feel comfortable with them.  It'll be worth it.  
+
+- Find and xargs.  And find piped into xargs.  We like to say "find is your FrIeND"; it's great for traversing directory hierarchies.  However, its syntax is ...  we could say something like "idiosyncratic," or "quirky," but "annoying" is closer to the mark.  If we want to actually do something with the list of files it produces, there's a syntax using -exec and curly braces, but it's so much easier just to pipe its output to "while read i" or "xargs" or "perl -pe"
+
+- Sort.  You'll use sort really a lot.  Also head, tail, uniq, and a bunch of other commands in /bin and /usr/bin and /sbin and /usr/sbin.  We think it's fun to just look through these directories from time-to-time, pick out commands we've never heard of, and learn what they do.  It's just enriching your vocabulary.
+
+How do you learn what they do?  You used to have to run "man," from the command line.  That still works, but nowadays, search engines and the web may be easier.
+
+There is no better book for learning the basics than Kernighan and Pike's "The Unix Programming Environment."  You'll bog down in the middle and won't finish it, but the first few chapters are a better introduction to how to think about Unix tools than anything written since.
+
+If you're really a programmer, disguising yourself as a sysadmin, we also recommend Kernighan and Plauger's "Software Tools."  All the code is in RATFOR, a language you'll never see, but it's all readable and is the best explanation around for why Unix commands are designed the way they are.  "Software Tools in Pascal," by the same authors, is not an acceptable stand-in.  Brian Kernighan has an essay called "Why Pascal is Not My Favorite Programming Language."  In it, he gives a lot of reasons, but that would also serve as a good, alternative title to "Software Tools in Pascal."
+
+With that introduction, let's dive in.
+
+
+
+Learning Bash
+=============
+
+There are books and on-line tutorials, but the way to learn bash it to use it.  Luckily, if you make it your login shell, and spend a lot of time in a terminal window, you *are* using it.
+
+Most people don't know how to write bash scripts well.  They do it the way they write Perl or Python: with a text editor.  If you have that habit, make yourself break it, starting now.
+
+Suppose, for example, you have log files, named *.log and *.LOG, scattered through a directory hierarchy.  You want to rename them all to *.LOG.
+
+Okay, let's start.  Let's see if we can find all the files.
+
+  $ find .
+  ...
+
+Oh.  No.  That finds directories, too.  We don't need that.  So use an up-arrow key to recall the command and modify it.
+
+  $ find . -type f
+  README
+  foo.log
+  .do-not-touch/important.log
+  Oldlogs/
+  ...
+
+Well, okay, but we can do better than that.  Recall the command again, and modify it again.
+
+  $ find . -type f -name '*.log'
+  foo.log
+  .do-not-touch/important.log
+  Oldlogs/bar.log
+  ...
+
+Okay, that output is closer.  It's the files we're trying to change, but some idiot--probably me--has hidden files in there that we probably should not touch.
+
+  $ find . -type f -name *.log | grep -v .do-not-touch | less
+  foo.log
+  Oldlogs/bar.log
+  ...
+
+(The "less" lets us look through the whole list of files, a screen at a time.)  Sure enough, this names the files we want to change the names of.  To what?
+
+  $ find . -type f -name *.log | grep -v .do-not-touch | while read i
+  > do
+  > echo ${i/.log/.LOG/}
+  > done
+  foo.LOG/
+  Oldlogs/bar.LOG/
+  ...
+
+Oops.  Got the syntax of shell pattern substitution wrong.  Recall it and fix it.
+
+  $ find . -type f -name *.log | grep -v .do-not-touch | while read i
+  > do
+  > echo ${i/.log/.LOG}
+  > done
+  foo.LOG
+  Oldlogs/bar.LOG
+  ...
+
+Looks like the names we want to change to, so recall it again and turn this into what we want.
+
+  $ find . -type f -name *.log | grep -v .do-not-touch | while read i
+  > do
+  > echo mv $i ${i/.log/.LOG}
+  > done | less
+  mv foo.log foo.LOG
+  mv Oldlogs/bar.log Oldlogs/bar.LOG
+  ...
+
+Ah.  Now you're talking.  This is a script that creates the commands to do what we want.
+
+We could recall the command and edit out the "echo", which would do the commands instead of just telling them to us, but piping the command into an separate instance of bash is less error-prone.  The part we've already written spits out commands, and we hand those commands to bash, which executes them.  (Bash is a program, too.  Remember?) 
+
+We like to use "bash -x," which lets us see the commands as they execute.
+
+  $ find . -type f -name *.log | grep -v .do-not-touch | while read i
+  > do
+  > echo mv $i ${i/.log/.LOG}
+  > done | bash -x
+  + mv foo.log foo.LOG
+  + mv Oldlogs/bar.log Oldlogs/bar.LOG
+  + ...
+
+And it's done.
+
+Oh, but we want to save this script, so we can use it again.
+
+  $ fc 
+
+Fc ("fix command") is a lot like up-arrow, but instead of bringing back the last command on the command line, it brings it up in your full-screen editor of choice.  Now, just write that to a file, put the file in your path -- $HOME/bin or /usr/local/bin, perhaps -- make it executable, and you have a script.
+
+Let's summarize this approach, and say why it's a good idea:
+
+- We develop this script, as a pipeline, a step at a time, entirely on the command line.
+- We print our outut to stdout, and look through that output to see if it's right.
+- At each step, we use history to recall pipelines and tweak them.
+- No harm, no foul: until the output is right, there's no penalty, and nothing to have to undo.
+- When the output is right, we execute it.
+- To turn it into a script we can re-use, use fc.  After we do this, we can go back and clean it up.
+
+In this case, we wrote a program by having a script put out the commands we want, and then pipe those commands to a subshell.  This step doesn't always apply, but it often does.  Sometimes, we wait until the output is right, then send it to a file by tacking on a '> OUTFILE'.  But no matter what, we wait until we're getting the right stuff on-screen before we resort to editing textfiles.
+
+What would you pay?  But wait.  There's more.
+
+We watch way too many people edit command lines by using arrow keys.  You wouldn't do that in your text editor, right?
+
+If you like emacs, all the basic emacs commands are available to you when you're editing history.  ^E goes to the end of the line, ^A to the beginning.  ^R does incremental searches through your history to find earlier commands.
+
+If you like vi, put command-line editing into vi mode, like this:
+
+  $ set -o vi
+
+Suddenly, "w" takes you forward a word, "fX" finds the next X in the line, and so on.  Don't forget that editing is modal.  Want emacs editing mode back again?
+
+  $ set -o emacs
+
+Like gedit? There is no gedit mode. But you can learn either vi or emacs better by training your fingers while editing your command lines.
+
+
+
+
+
+Regexes and Globs
+=================
+
+Regexes are, as we've noted, a must.  To process regexes as parts of pipelines, we used to use sed all the time, but now we use 'perl -pe' instead.
+
+- perl -pe 's/pattern/substitute/' does almost exactly what sed 's/pattern/substitute/' does.
+
+- when they do something different, perl -pe is more likely to do what you really meant, anyway.  perl regexes are more powerful and intuitive.
+
+- perl will let you surround the pattern and substitute with bracing, like "()" and "{}" and "[]", which is easier to read.
+
+- perl can stream-edit files in-place with the "-i" flag.
+
+How do you get them right?  Again, on the command line.
+
+If you want to debug a complicated regex, type it in on the command line,
+and then type input to see wh.  "perl -pe" is a good test harness:
+
+  # perl -pe 's((.*:)/home/jhamer)($1:/home/jsh)'
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,:/home/jhaemer:/bin/bash
+  jsh:x:1000:1000::Jeffrey S. Haemer,,,:/home/jsh:/bin/bash
+  ^C
+
+What's wrong with that?  I misspelled "jhaemer."  Recall the command and edit it.
+
+  # perl -pe 's((.*:)/home/jhaemer)($1:/home/jsh)'
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,:/home/jhaemer:/bin/bash
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,::/home/jsh:/bin/bash
+  ^C
+
+And I duplicated the colon.
+
+  # perl -pe 's((.*):/home/jhaemer)($1:/home/jsh)'
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,:/home/jhaemer:/bin/bash
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,:/home/jsh:/bin/bash
+  ^C
+  Aah.  Much better.  Let's try it out on the whole password file.
+
+  # perl -pe 's((.*):/home/jhaemer)($1:/home/jsh)' /etc/password | less
+  ...
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,:/home/jhaemer:/bin/bash
+  jsh:x:1000:1000:Jeffrey S. Haemer,,,:/home/jsh:/bin/bash
+  ...
+  ^C
+
+That looks right.  Let's just replace the password file with the new version.  Recall the command and add the "-i" flag, for an in-place edit.
+
+  # perl -ipe 's((.*):/home/jhaemer)($1:/home/jsh)' /etc/password
+
+Done.
+
+
+A Common Mistake
+
+We sometimes do this, by accident.
+
+  $ perl -pe 's((*):/home/jhaemer)($1:/home/jsh)'
+  Verb pattern '' has a mandatory argument in regex; marked by <-- HERE in m/(*: <-- HERE )/home/jhaemer/ at -e line 1.
+
+Not very understandable.  Let's recall it and carve it down, to find our bug:
+
+  $ perl -pe 's(*)(FOO)'
+  Quantifier follows nothing in regex; marked by <-- HERE in m/* <-- HERE / at -e line 1.
+
+Still not very understandable, but now, either by reading or by looking and thinking, we realize that we really meant '.*', not '*'.
+
+  $ perl -pe 's(.*)(FOO)'
+  whatever
+  FOO
+
+We were using a glob where we meant to use a regex.  You may be asking yourself, "What the heck does that mean?"
+
+The short answer: RTFM.  The longer answer: shell patterns for filenames, like
+"ls *.jpg" have a different syntax from regex patterns for strings, like perl -pe 's((.*)\.jpg)($1.jpeg)'
+
+That's awful.  But it's true.  For example, in filename patterns, calld "globs," or "shell globs," the pattern "*" means "any string" and '.' means '.'
+In regexes, "*" just means "repeat 0 or more times" and "." means "any character."
+
+Keep the two straight in your mind, and learn both.
+
+
+
+Conventions Help
+================
+
+We use conventions.  Yours are probably different, but you ought to have some because it makes reading your code less work.  Look at these conventions, then make up your own to replace the ones you don't like.
+
+
+Output
+
+Output goes to stdout.  Errors go to stderr.  Usage messages from our shell scripts look like the usage messages from any other Unix utility.  Code like this just seems unprofessional:
+
+  if [ $# -ne 1]
+  then
+    echo "wrong number of arguments"
+    exit 1
+  fi
+
+Instead, we say this:
+
+  [ $# -eq 1 ] || die "usage: $0 filename"
+
+
+Identifiers
+
+We like lower-case for variable names and leave upper-case, like $PATH, $HOME, or $RANDOM for variables that bash (or other programmers) set.
+
+It's legal to use curly braces around variable names, like ${PAGER} or ${PS1}, but we only use that for disambiguation.  If we see curlies, we know that's what we're doing.
+
+  $ echo $HISTFILE
+  /home/jsh/.bash_history
+  $ echo $HISTFILESIZE
+  500
+  $ echo ${HISTFILE}SIZE
+  /home/jsh/.bash_historySIZE
+
+For multi-word identifiers, we separate words with underscores. For multi-word file and function names, we use hyphens.  When we start to type one, we don't have to ask, "Was that 'prune-all-logs' or 'prune_all_logs'?"
+
+Why not "pruneAllLogs"?  We grew up with C, not Java.  Why underscores
+for variables?  The shell lets variable names have underscores, but not
+hyphens.  That was easy.
+
+We don't make "shell include" files executable, and we use a naming convention to pick them out (the extension ".sh").
+
+  $ ls -l project
+  -rw-r--r--   1 jsh  jsh   148 Aug 23 08:44 Makefile
+  -rw-r--r--   1 jsh  jsh   461 Aug 23 10:23 gripe.sh
+  -rwxr-xr-x   1 jsh  jsh  3215 Aug 23 10:16 look-for-bad-links
+
+In functions, we often use "local" to limit variable scope, and prefix local identifiers that aren't within functions with '_', like this:
+
+[FIXME: an example here]
+
+
+Formatting
+
+There isn't a pretty-printer for shell scripts that will reformat your code to look nicer. You have to do it by hand.
+
+We don't indent deeply, but we indent.  We also don't put continuation marks when we don't need to.  A string continues until the string closes.  Compound statements (if, while, etc.), pipes (|), and conditionals (&& and ||) automatically continue the line. 
+
+  [ $# -gt 0 ] && [ $# -lt 3 ] ||
+    die "usage: $0 filesystem sizelimit"
+
+To reinforce this, just stop and try it interactively.
+
+  $ for i in {1..3}
+  > do
+  >
+  ...
+  $ [ -f foo ] ||
+  >
+
+A string continues until the string closes, so you can sometimes avoid hard-to-read "here" documents.
+
+  $ echo "
+  The biggest offenders are these:
+    file system: $fullest_file_system
+    user: $biggest_disk_hog
+    process: $biggest_cycle_hog
+  "
+
+  The biggest offenders are these:
+    file system: /home
+    user: jsh
+    process: firefox
+
+
+Quoting
+
+We use double quotes if we're going to expand something inside them, and single quotes otherwise.  It keeps us out of trouble.
+
+  $ echo "Done!"
+  !": event not found
+  $ echo 'Done!'
+  Done!
+
+We often surround variable values with quotes, to see where they would have been if we hadn't mis-typed them.
+
+  $ echo "tmpfile: '$tmpfile', PID: '$PLD'"
+  tmpfile: '/var/tmp/217, PID: ''
+
+We gave up on back-ticks for subprocesses 20 years ago, when Dave Korn gave us $(), which nests.
+
+[ FIXME: a good, nested example here ]
+
+
+
+Debugging Shell Scripts
+=======================
+
+The shell is a programming language.  Your scripts will have bugs.  What are useful strategies to cope with this inconvenient truth?
+
+Do you sometimes wish there were a debugger for bash?
+
+What follows are a variety of techniques that may help you wish that less often.
+
+
+Size Matters
+
+We've seen 10,000-line shell scripts.  Eeeew.  Most of ours fit on a screen.  If they get much bigger, break the pieces into separate scripts that call one another.  When you do that, design the separate scripts to be testable and debuggable by themselves, so you can make and fix one mistake at a time.
+
+
+Some Things Aren't Shell Scripts
+
+Suppose you need a utility that runs programs for up to a certain amount of time, then kills them if they take too long.  You want to monitor three possibilities: Success, Failure, and Hung.  The usage might be something like
+
+  runfor '600' 'yum dist-upgrade'
+
+Can you write a shell script to do this?  Maybe.  But you can do it more easily in Perl or Python or Ruby or C.
+
+  #!/usr/bin/perl
+  # adapted from the Perl Cookbook, pp. 594-595
+
+  # play nice
+  use warnings;
+  use strict;
+
+  # parse and sanity-check args
+  sub usage {
+    $0 =~ s(.*/)();
+    die "usage: $0 Nsecs cmd-with-args\n";
+  }
+  @ARGV > 1 or usage;
+
+  my ( $deadline, @cmd ) = @ARGV;
+  ( $deadline =~ /^\d+$/ ) && ( $deadline > 0 ) or usage;
+
+  sub try {
+
+    eval {
+
+      # set the deadline
+      $SIG{ALRM} = sub { die; };
+      alarm($deadline);
+
+      # execute the command
+      system "@_"; # command and arguments
+
+      # say what happened
+      die( ( $? ? "failure" : "success" ) . ": @cmd\n" );
+    };
+
+  }
+
+  sub catch {
+    if ( $@ =~ /^success: / ) {
+      exit(0);
+    }
+    elsif ( $@ =~ /^failure: / ) {
+      die "$@";
+    }
+
+    # cleanliness is next to godliness
+    local $SIG{TERM} = 'IGNORE';
+    kill "TERM", -$$;
+
+    die "timeout: @cmd\n";
+  }
+
+  try @cmd;
+  catch;
+
+In general, design your scripts to use shell-level utilities where you might make subroutines in other languages.  When a "subroutine" -- a utility -- isn't already available, and turns out to be hard to do in the shell itself, you can just write it in something else.
+
+
+Some Things Are Functions
+
+The shell has functions.  Use 'em.  Every call to an outside program forks a subshell, with its own environment.  Outside utilities can't change the environment of the calling script.  You can't configure variables or change directories from a separate program.  You can from functions, which share the namespace and environment of the shell they're defined in.
+
+  put-initdir-in-path() {
+    grep -q '/etc/init.d $PATH || PATH=$PATH:/etc/init.d
+  }
+
+By the way, there are alternative syntaxes for function definitions.  The one we give above is the most portable across POSIX shells.
+
+Functions are more efficient than separate scripts, too, but ignore that.  Tom Christiansen, author of too many Perl things to count, says, "What's the difference in speed between a program written in Perl and the same program written in C++?  About two weeks."  When you're writing scripts, developer time is usually a bigger concern than execution time.
+
+
+Get It Right Once, Then Stash it Away
+
+Part of debugging our scripts is doing a lot of error reporting. When we write an error reporting function, we want to parse and print any arguments, write messages to standard error, and say where the error is.
+
+Getting all that right is tedious the twentieth time.  When we change our mind about what we want in reports, propagating the changes to all our scripts is, too.
+
+Instead, our code looks like this:
+
+  source gripe.sh
+
+  cups_spool_dir=/var/spool/cups
+  [ -d cups_spool_dir ] ||
+    die "Missing cups spool directory [$cups_spool_dir]"
+
+What's "gripe.sh"?  Ours looks like this:
+
+  # common error-handling functions
+
+  if [ $_gripe ]; then return 0; else _gripe=1; fi  # include guard
+
+  warn() { printf "$* at line %s file %s: $msg\n" $(caller) 1>&2 ; }
+  die() { printf "$* at line %s file %s: $msg\n" $(caller) 1>&2 ; exit -1; }
+
+
+Log What You're Doing
+
+When your script works fine from the command line, but fails as a cron job, a debugger won't help.  Starting it up with "bash -x", which makes the shell report each line before executing it, will.
+
+Even from the command line, running your script with "bash -x" can save you a mountain of work.
+
+  $ cleanup-toevi
+  Done!
+  $ ls /var/tmp/toevi
+  evi.txt
+  ...
+
+Funny, it doesn't look done.
+
+  $ bash -x cleanup-toevi
+  + toevi=/var/tmp/toevi
+  + rm -rf
+  + echo 'Done!'
+  Done!
+
+Uh-oh.  Did we forget to tell it which directory to clean up?
+
+  $ cat cleanup-toevi
+  #!/bin/bash
+
+  toevi=/var/tmp/toevi
+  rm -rf $tooevi
+  echo 'Done!'
+
+It's just a typo.
+
+We even use "bash -x" to get timing information, by setting PS4, the prompt bash issues before it tells us the command it's about to do (Default: '+')
+
+  $ cat nightly-tasks
+
+  #!/bin/bash
+
+  PS4='== $(date)\n'
+  set -x
+  upgrade-systems
+  check-for-stuck-email
+  do-nightly-dumps
+  echo 'Done!'
+
+  $ nightly-tasks
+
+  == Sun Aug 23 11:40:47 MDT 2009
+  upgrade-systems
+  == Sun Aug 23 11:43:30 MDT 2009
+  check-for-stuck-email
+  == Sun Aug 23 12:25:47 MDT 2009
+  do-nightly-dumps
+  == Sun Aug 23 12:25:47 MDT 2009
+  echo 'Done!'
+  Done!
+
+Checking for stuck email looks like it, itself, gets stuck, while the nightly dumps take no time at all.  Perhaps those are both worth a look.
+
+
+Make Bash Catch Errors For You
+
+We often start our scripts like this:
+
+  #!/bin/bash -eu
+
+Here, "eu" is neither the European Union, nor Greek for "true," but two flags: "-e" -- die when you hit an error -- and "-u" -- treat unset variables as errors.
+
+This both helps bash catch bugs and makes code like this:
+
+  #!/bin/bash
+  if [ -z "$1" ]
+  then
+    echo "No directory argument set" 1>&2
+    exit 1
+  fi
+
+  cd $1
+  echo rm -rf *
+
+much more readable:
+
+  #!/bin/bash -eu
+  cd $1
+  echo rm -rf *
+
+  $ cleanout-tmpdir
+  ./cleanout-tmpdir: line 3: $1: unbound variable
+
+(Unless you check for unset variables somehow, see the chapter on Backups.)
+
+
+Debuggers
+
+Even with all these techniques, you'll still sometimes hit a problem so thorny that you wish you had a debugger.  
+
+Well, now there is one!  And a nice one, too, modelled on gdb/perldb. 
+
+You may be able to install it with your package manager.  If you need to install it by hand, use your browser to search for the source.
+
+Don't you wish there were a Makefile debugger?  If you hear of one, let us know.
+
+
+
+Use The Shell, Luke
+===================
+
+Every language has idioms.  If you're a C programmer, you immediately recognize this as a string copy, though it wouldn't be obvious to a COBOL programmer.
+
+  for (; *s++ = *t++; ) ;
+
+The shell is no exception.  There are idioms you'll see in shell scripts that you should learn, just so you can recognize them.  For example
+
+  > filename
+
+What's that?  It creates the file "filename", or truncates it to zero length if it already exists.  How's that work?  We'll make that one of the exercises at the end of the chapter, along with "How would you do the same thing if you also want it to work for folks who use 'set -o noclobber' ?"
+
+  : ${pwfile:=/etc/passwd}
+
+This gives the variable pwfile a default value.  Huh?
+
+Before 1981, all comments started with ':', and they weren't really comments, they were commands. They still are.
+
+  $ type :
+  : is a shell builtin
+
+':' is a no-op. Like true, it's a command that always succeeds, and does nothing.
+
+Since it doesn't do anything, you can give it whatever arguments you want.
+
+  : This is a command that does nothing. And, a comment.
+
+With one wrinkle: since it's a command, the shell processes its arguments. Side-effects? You bet.
+
+This is a surprisingly common idiom in shell scripts. (Look through the /etc/ directory for these.)
+
+  : ${foo:=bar}
+
+Huh? Okay, step at a time.  (If you want more details, see the bash man page.)
+
+$foo is the value of the variable foo.
+
+${foo:-bar} has the value $foo, unless foo doesn't have a value. If foo is unset or null, then the value of this typographic mess is the string, "bar".
+
+${foo:=bar} is like that, but it also assigns foo the value bar as a side-effect if it didn't already have a value.
+So this command
+
+  : ${foo:=bar}
+
+sets foo to the default value "bar", if it hasn't already been set to something else. And then, it goes on to the next line in the script, because the command itself is a no-op.
+
+The entire purpose of that null command is the side-effect produced when the shell evaluates its arguments -- it announces a default value for $foo.
+
+More verbose ways to say this include these:
+
+  foo=${foo:-bar}
+or
+
+  [ "$foo" ] || foo=bar
+
+or even
+
+  if [ "$foo" = "" ]; then foo=bar; fi
+
+But if you want to understand the scripts in the /etc/ directory, you need to at least recognize:
+
+  : ${foo:=bar}
+
+and not be intimidated by it.
+
+Plus, knowing this lets you make sense of shell scripts that are more than 29 years old.  This is the 40th anniversary of Unix, so that seems fitting.
+
+
+
+Documenting Your Scripts
+========================
+
+Comments are good.  But if you have something that's important enough to install, in /usr/local or /usr/share, write a man page.
+
+One useful trick is to wed the documentation to the code, and let Unix do the formatting for you.  Perl's pod utilities make doing this reasonably easy.  (Didn't we tell you that you had to learn Perl?)
+
+Here's a simple example.
+
+  $ cat /usr/local/bin/rootusers
+  #!/bin/bash
+
+  source gripe.sh
+  tmpfile=/tmp/$$
+
+  trap 'rm -f $tmpfile' EXIT
+
+  awk -F: '$3==0' /etc/passwd |
+    tee $tmpfile
+
+  [ $(cat $tmpfile | wc -l) -eq 1 ] ||
+    die "Should be exactly one root user"
+
+  exit 0
+
+  =head1 NAME
+
+  rootusers - find users with UID of 0
+
+  =head1 SYNOPSIS
+
+      rootusers
+
+  =head1 DESCRIPTION
+
+  Scans password file for users with UID of 0.
+  Fails and issues error message if there's more than one.
+
+  =head1 FILES
+
+  F</etc/passwd>
+
+  =head1 AUTHOR
+
+  Jeffrey S. Haemer <jsh@usenix.org>
+
+  $ pod2text /usr/local/bin/rootusers
+
+  NAME
+      rootusers - find users with UID of 0
+
+  SYNOPSIS
+          rootusers
+
+  DESCRIPTION
+      Scans password file for users with UID of 0. Fails and issues error
+      message if there's more than one.
+
+  FILES
+      /etc/passwd
+
+  AUTHOR
+      Jeffrey S. Haemer <jsh@usenix.org>
+
+Podchecker(1) checks the syntax, pod2man(1) gives an installable man page, and pod2html(1) generates a version that your users' browsers can display.
+
+
+

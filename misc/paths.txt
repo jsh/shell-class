@@ -1,0 +1,168 @@
+If I type the absolute or relative path to a command, the shell executes it.
+But if I type a bare command name (that is, no slashes), the shell does
+something more useful than just looking in my current directory.  The shell finds
+looks in the directories of $PATH until it finds a command by that name and
+picks it.
+
+The list is colon-separated, and typically set up in some combination of
+/etc/bashrc, ~/.bash_login, and ~/.bashrc.  You can add to it or re-set it at
+your convenience.
+
+Obstacles in my $PATH
+=====================
+
+I often add directories to $PATH, on the fly.  I also sometimes re-source my
+.bashrc when things get horked, or when I'm adding new stuff to my .bashrc that
+I want to pick up immediately.  My .bashrc is also where I set up my $PATH.
+
+Either of these used to leave me with paths that looked like this:
+
+    /home/jsh/bin:/home/jsh/bin/:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr/games:/opt/gnome/bin:/opt/kde3/bin:/usr/lib/java/jre/bin:.:/home/jsh/bin:/home/jsh/bin/:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr/games:/opt/gnome/bin:/opt/kde3/bin:/usr/lib/java/jre/bin:.
+
+Lots of duplicated directories.
+
+A way to fix this is to look for a directory in my path before I add it.
+
+    inpath() {
+	local NPATH=:$PATH:			# add sentinels
+	[ ! ${NPATH/:$1:/} = $NPATH ]		# look for the directory
+    }
+
+The colons are sentinels.  They keep me from finding "/bin" within "/usr/bin".
+
+First, I add them to $PATH at the start of the routine, so I don't have to
+special-case paths that begin or end with the directories I seek, and then I
+just look for ":/bin:".
+
+I only add the sentinels temporarily because (a) if I didn't, I'd eventually
+get a path surrounded by ":::::" and (b) leading and trailing colons in paths
+have special meaning -- they mean '.'  (So does ::, which actually works out
+nicely.)
+
+If nothing else, inpath() lets me look to see if a directory's already in my
+$PATH without running my finger across the screen and getting smudges on it.
+
+Be here, now
+============
+
+With inpath(), I can build some utility functions.  Here's one that adds the
+current working directory to my $PATH. 
+
+    pwdpath() { pushpath $PWD; }
+
+Why not just use '.'?  Different goal.
+
+I'm often temporarily building tools in one directory, then using them in
+others.
+
+With pwdpath, I can add the temporary tools directory by cd'ing there, calling
+pwdpath, and then go back to the other directories to use what I'm building.
+
+When I exit the shell, or crank off a new one, my $PATH's back to normal.
+
+
+Building a better $PATH
+=======================
+
+Here's a pair of utility functions I use to build $PATH, in my .bashrc.
+
+    pushpath() { for d in $*; do inpath $d || PATH=$PATH:$d; done; }
+    unshiftpath() { for d in $*; do inpath $d || p="$d $p"; done;
+		    for d in $p; do PATH=$d:$PATH; done;
+    }
+
+Designing by analogy to Perl, pushpath() adds to the right end of $PATH, and
+unshiftpath() adds to the left (but here, only if they're not in $PATH
+already).
+
+With these, this
+
+	PATH=~/bin:$PATH:/sbin:/usr/sbin
+
+turns into this
+
+	pushpath /sbin /usr/sbin
+	unshiftpath ~/bin
+
+Two lines, not onel (even if you don't count the number of lines to define the
+functions), but I no longer get a bizarre $PATH when I re-source ~/.bashrc, and
+it's pretty clean.
+
+I design by analogy where I can.  I don't have to learn or remember
+details of my much-more-elegant but idiosyncratic design.  Plus,
+occasionally, smart folks before me have thought things through carefully, and
+their design's better for reasons that I don't immediately see.
+
+Not often, I hasten to add. :-)
+
+
+Everybody's doin' it, doin' it, doin' it
+========================================
+
+Using the colons-as-path-sentinels trick, from the last entry, I can print
+out my path as a list of space-separated directories.
+
+    listpath() {
+	local p=:$1:		# post sentinels
+	p=${p//::/:.:}		# now handle :: and terminal :
+	echo ${p//:/ }		# colon -> blank
+    }
+
+I'm not pinning this to $PATH, so I can use it to enumerate the elements in
+other colon-separated directory lists, like $MANPATH, that I hand it.
+
+Here, for example, is an analogue to "which"
+
+    whichman()
+    {
+	for $dir in $(listpath $MANPATH)
+	do
+		[ -f $dir/$1 ] && echo $dir/$1
+	done
+    }
+
+Colon-separated lists are useful tools in your own applications; it's easy to
+parse them, and everyone's already comfy with them.  This isn't a new idea.
+
+	env | grep :
+
+
+Old dogs, old tricks
+====================
+
+The traditional way to parse paths is with $IFS.
+Some versions of /usr/bin/which are basically
+
+    ...
+    PATH=:$PATH:
+    PATH=`echo $PATH | sed 's/::/:.:/g'`
+    OLD_IFS=$IFS
+    IFS=:
+    for $d in $PATH
+    do
+	if [ -f $d/$1 ] && [ -x $d/$1 ]
+	then
+	    echo $d/$1
+	    exit 0
+	fi
+    done
+    IFS=$OLD_IFS
+    ...
+
+Setting $IFS (Internal Field Separator) makes the "for" loop treat
+$PATH as a colon-separated list, and pull directories from it one at a time.
+
+You save the old value of $IFS before the loop and restore it
+right afterwards, so as not to screw up other things later.
+
+This seems clunkier than the ${PATH//:/ } substitution that I now use, but
+you need to know how to read the $IFS trick, because you see it.
+
+Why?
+
+Older shells didn't understand things like ${PATH//:/ }.  Letting the shell
+itself do string operations is recent.  For decades, scripts did almost all
+string manipulation by forking an external process, like sed(1), and capturing
+its output.  For a shell programmer, tricks like setting and unsetting $IFS
+were clever performance hacks.  You still see them in scripts because the $IFS
+stuff works on older shells, and because old habits die hard.
