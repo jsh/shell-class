@@ -1,0 +1,18 @@
+I often perform this sequence:
+
+$ make
+...
+make[3]: [foo.o] Error 1 (ignored)
+# a compile of foo.c fails, somewhere deep in a giant directory hierarchy.
+$ find .  -name foo.c   # look to see where it is, and whether there's more than one
+a/b/c/d/e/f/g/h/i/foo.c
+# recall that last command and edit it
+$ cd $(dirname $(find . -name foo.c))  # go to the directory in question to begin work on the problem
+$
+
+
+I suppose I could make an alias for this but, as-is, it illustrates nesting.
+
+Actually, it also illustrates the alluvial approach to working with the CLI: build up what you want to do a little at a time, verifying the output of one piece, then layering on the next with the command-line-editing facilities.
+
+I learned a lot of shell programming this way, but also some vi. :-)

@@ -1,0 +1,19 @@
+For Doug Miller.
+
+#!/bin/bash
+for i in $*; do
+  [ -f $i ] && mv $i $i.bak
+done
+
+  I might ask some or all of:
+
+  (1) What's the first line do, and does it have a name?
+  (2) What's the "for i in $*" do?
+  (3) What's the [ -f $i ] do?
+  (4) What's the && do?
+  (5) What's the script do?
+  (6) What can go wrong with it, and so what tests would you write for it?
+  (7) Extra credit 0: If something does go wrong, what's the script's exit status?  And if nothing does?  How can you learn its exit status?
+  (8) Extra credit 1: how would you re-write this script to improve it?
+  (9) Extra credit 2: What single command could you use instead of this script?
+

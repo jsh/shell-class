@@ -1,0 +1,14 @@
+The short version of why shell scripts are unreliable:
+
+Shell scripts are problem areas because, like Makefiles, people don't think of, design, and implement them as programs.  It's a social and mindset problem.
+
+Shell scripting is so easy, and so powerful, that people routinely slap together shell scripts who wouldn't dream of ever "writing a program."  Other folks who can write programs write shell scripts without treating them as real programs.
+
+Within months of the introduction of the first, programmable Unix shell (the Mashey shell, in PWB Unix), surveys of the Bell Labs machines it was installed on showed that the majority of executable programs on the system were shell scripts.  (This from a BLTJ paper by Mashey & Dolotta that I'm too lazy to look up.)  People didn't convert old code to shell scripts, they slapped together scripts to do things that they would previously have done by hand instead of writing code to do.
+
+At my previous employer, I'd beg people to come review my scripts.  No one was interested, both because shell scripts are even less glamorous than COBOL, and although they expect to review C, or Java, or Python, it's never crossed their minds that shell scripts are real programs that need reviewing.
+
+That said, shell-program design should be the software that's most like hardware design because it's built of loosely-coupled, fully-tested, opaque, reusable components, all with very simple interfaces.  The components are shell-level commands themselves.  The inputs are files (including stdin and stdout) and arguments.
+
+Personally, I think this makes shell scripts incredibly interesting.
+
