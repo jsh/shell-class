@@ -1,0 +1,5 @@
+# .bashrc: sourced by every non-login, interactive shell
+
+for cfg in ~/.bash-{variables,functions,aliases}; do
+ [ -r $cfg ] && source ~/$cfg
+done

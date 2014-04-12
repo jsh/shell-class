@@ -1,0 +1,39 @@
+# .bash-functions: bash functions
+
+## set up a git-controlled directory
+git-started() {
+  git init ${1:?"usage: $FUNCNAME <dir>"}
+  cd $1
+  git flow init -d
+}
+
+## define differing prompts for success and failure
+
+### prompt length
+prompt() {
+  case ${1:-normal} in
+    short)  _base='' ;;
+    normal) _base='\u@\h:\W' ;;
+    long)   _base='\u@\h:\w' ;;
+  esac
+}
+
+### prompt colors
+export _r="\[\e[01;31m\]"
+export _g="\[\e[01;32m\]"
+export _n="\[\e[0m\]"
+
+_success=${_g}'\$'${_n}' '
+_failure=${_r}'\$'${_n}' '
+
+### spit out the prompt
+put_prompt() {
+  if [ $? = 0 ]; then
+    PS1=$_base$_success
+  else
+    PS1=$_base$_failure
+  fi
+}
+
+### invoke put_prompt() for every PS1
+export PROMPT_COMMAND=put_prompt

@@ -1,0 +1,5 @@
+# .bash-variables: shell variables of various sorts
+
+PATH+=:/c/Program\ Files\ \(x86\)/Git/bin
+export EDITOR=/bin/vim
+export GIT_EDITOR=$EDITOR
