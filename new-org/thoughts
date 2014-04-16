@@ -6,45 +6,31 @@ Explore: bind -v
 Exercise: Refactor some more
 
 
-
 Promptly, Now!
 
-Theme: shell variables, set -u
+Theme: shell variables, functions, set -eux
 Walk-through: Timing shell scripts
+Walk-through: die(), cdjob()
 Explore: bash manual, set/declare, env
 Question: What does ${foo-} mean and when would you use it?
-Exercise: Make prompts that are different sizes and a way to switch.
-
-
-
-Who Put Bugs in My Code?
-
-Theme: functions, set -eux
-Walk-through: die()
-Walk-through: prompts with :-) and :-(
-Question: Do you have any functions pre-defined? Aliases?
 Question: Is there a bash debugger? How do you use it?
-
 Exercises:
-(a) cdjob()
+(a) Make prompts that are different sizes and a way to switch.
 (b) make a function to switch prompt lengths
 (c) make a function to report exit status by color
 
 
 
+
 Are You the Controlling Type?
 
-Theme: Control structures, especially on the command line, process control, job control, and so on.
+Theme: Control structures, especially on the command line, process control, job control, I/O redirection, and so on.
 Walk-through: Nested $()
-Question: What's diff <(date) <(date) do?
-Exercise: 
-
-
-The Ins and Outs of the Shell
-Theme: I/O Redirection
 Walk-through: Using exec, |&,
+Question: What's diff <(date) <(date) do?
 Question: What does ':' do?
 Exercise: Show examples of shell-script comments.
+
 
 
 Under the Sheets
