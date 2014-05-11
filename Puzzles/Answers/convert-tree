@@ -1,0 +1,7 @@
+#!/bin/bash -eux
+
+shopt -s globstar
+
+for f in **/*.html; do
+  lynx -nolist -dump $f > ${f/.html/.txt}
+done

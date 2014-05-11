@@ -1,0 +1,5 @@
+#!/bin/bash -eux
+
+usage="usage: $0 <dirname>"
+
+find ${1:?$usage} -type f | xargs md5sum | sort | uniq --check-chars=32 -D

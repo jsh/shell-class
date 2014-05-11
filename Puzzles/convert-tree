@@ -1,0 +1,17 @@
+Paul Nowosielski asks BLUG
+
+  I'm trying to convert all the html files
+  into text using lynx. The files are in many directories
+  with meaningful names.
+
+  Can anyone assist me in creating a script
+  That will go through each directory recursively
+  and convert the files to text and preserve the base name.
+
+  ex: file1.html file1.txt file2.html file2.txt (or something close to this)
+
+Hint:
+
+  This one-liner converts foo.html to foo.txt
+
+    lynx -dump -nolist foo.html > foo.txt

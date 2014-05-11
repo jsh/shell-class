@@ -1,0 +1,14 @@
+Report the signal received.
+
+Example:
+
+  $ report-signal &
+  [1] 20001
+  $ kill -2 %1
+  INT
+  $ kill -13 %1
+  PIPE
+  $ kill -9 %1
+  Killed
+
+Why doesn't 9 report "KILL"?

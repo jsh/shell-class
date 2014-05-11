@@ -1,0 +1,89 @@
+#!/bin/bash
+#
+# espdiff - do whatever it was you wanted
+# Copyright (C) 2003 Tim Waugh <twaugh@redhat.com>
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+##### version() spits out a version number, usage() a usage message
+
+version() {
+  echo "espdiff - patchutils version 0.3.2"
+}
+
+usage() {
+  echo "usage: espdiff [OPTION...] [FILE...]"
+}
+
+#### initialize local variables
+deep_brainwave=0
+recurse=0
+compare=0
+while [ "$#" -gt 0 ] #### iterate over all the args
+do
+  case "$1" in
+  --help)
+	usage
+	exit 0
+	;;
+  --version)
+	version
+	exit 0
+	;;
+  --deep-brainwave-mode)
+	deep_brainwave=1
+	shift
+	;;
+  --recurse)
+	recurse=1
+	shift
+	;;
+  --compare)
+	compare=1
+	shift
+	;;
+  --) #### if the arg is '--' stop processing
+	shift
+	break
+	;;
+
+  *)  #### if the arg is unknown, stop processing
+	break
+	;;
+  esac
+done
+
+for each in "$@"  #### iterate over remaining args
+do
+  error=$(cat "$each" 2>&1 >/dev/null)  #### treat them as files, and try to cat them out
+  if [ $? -ne 0 ] #### if that fails
+  then
+    echo >&2 "espdiff${error#cat}"   #### transform cat's error message to espdiff's
+    exit 1
+  fi
+done
+
+## if all these succeed set the pause time. Default to 3 secs, but set to 6 if --deep-brainwave-mode
+delay=3
+if [ "$deep_brainwave" -ne 0 ]
+then
+  delay=$(($delay * 2))
+fi
+
+read -t $delay -p 'Please concentrate... ' || echo
+echo 'No brainwave activity detected.  Aborting.'
+exit 1
+
+#### notice that --recurse and --compare have no effect at all

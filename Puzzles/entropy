@@ -1,0 +1,26 @@
+Hal Pomeranz is forwarding me his email again. What are these lines doing, and why does the second line behave so oddly?
+
+  Date: Wed, 30 Apr 2014 03:38:43 -0700
+  From: Matt Alexander <m@mattalexander.com>
+  To: Hal Pomeranz <hal@deer-run.com>
+  Subject: No entropy?
+
+  Hey Hal,
+
+
+  We got a fun submission recently to our vulnerability rewards program that
+  I thought I'd share with you.
+
+  The submitter claimed that our virtual machines had low entropy and that we
+  therefore weren't properly seeding /dev/urandom and were returning
+  non-random values.
+
+  Here's their repro steps:
+
+  $ tr -dc [:graph:] < /dev/urandom | head -c 64 | xargs -0 > a
+  $ tr -dc [:graph:] < /dev/urandom | head -c 64 | xargs -0
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+  After scratching our heads for a while about what the hell was going on
+  with /dev/urandom, we finally had our AH HA moment.  Can you spot what's
+  causing this "vuln"?  ;)

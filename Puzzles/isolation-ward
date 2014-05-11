@@ -1,0 +1,33 @@
+One way to organize a large script is to put pieces into a single directory,
+with a top-level driver to execute or source them.
+
+What command will adjust the path of the top-level script to enable this?
+
+Example:
+
+  $ cat bs/piece1
+  #!/bin/bash
+  echo this is piece 1
+
+  $ cat bs/piece2
+  echo this is piece 2
+
+  $ bs/bigscript
+  this is piece 1
+  this is piece 2
+  $ mv bs /tmp # absolute invocation path should work
+  $ /tmp/bs/bigscript
+  this is piece 1
+  this is piece 2
+  $ pushd /tmp/bs; PATH+=: # and so should no invocation path
+  $ bigscript
+  this is piece 1
+  this is piece 2
+  $ cat /bigscript
+  #!/bin/bash
+
+  # How can we set the path in the script to make this work?
+  PATH=?????
+
+  piece1
+  source piece2

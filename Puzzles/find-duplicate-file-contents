@@ -1,0 +1,14 @@
+Find duplicate files under the named directory (files with the same md5 sum).
+
+Example:
+
+  $ find-duplicate-file-contents /bin
+  0a35aa198d80c3b7ebcdd0cefca38063  /bin/bunzip2
+  0a35aa198d80c3b7ebcdd0cefca38063  /bin/bzcat
+  0a35aa198d80c3b7ebcdd0cefca38063  /bin/bzip2
+  ccfad9cbfee0c140afa126ad7323f03e  /bin/gunzip
+  ccfad9cbfee0c140afa126ad7323f03e  /bin/uncompress
+
+Are any of these symlinks? Are they hard links?
+Can you modify this just to find links?
+Can you modify this just to find copies (non-links)?

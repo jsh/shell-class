@@ -1,0 +1,19 @@
+My birthday, November 21, is officially "World Hello Day."
+
+Write a filter that turns "hello world" into "world hello" .
+
+In more detail, take each input line and reverse the words.
+
+Example:
+
+  $ cat <<__EOF__ | worldhello
+
+  
+  my name is Yoda
+  this is good
+
+  __EOF__
+  
+  Yoda is name my
+  good is this
+

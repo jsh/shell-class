@@ -1,0 +1,14 @@
+Write a function that cds to a numbered job.
+
+Example:
+
+  $ cd /tmp
+  $ ./myscript &
+  [1] 19096
+  $ cd /etc
+  $ sleep 1000 &
+  [2] 19098
+  $ cd
+  $ cdjob %1
+  $ pwd
+  /tmp

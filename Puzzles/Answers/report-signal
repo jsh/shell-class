@@ -1,0 +1,7 @@
+#!/bin/bash
+
+n=$( kill -l | tail -1 | awk '{print $(NF-1)}' | sed 's/)//' )
+trap 'kill -l $(($?-128))' $(eval echo {1..$n})
+while :; do
+  sleep 1000
+done
