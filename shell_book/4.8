@@ -1,0 +1,15 @@
+  In my scripts, I use a utility function.
+
+  cmd || { printf "%b" "FAILED.\n"; exit 1; } ->
+    cmd || die FAILED.
+
+
+  For ease-of-reading, I ape the names of the Perl functions:
+
+    warn() { [ "$*" ] && echo $* 1>&2 ; }
+    die() { warn $*; exit -1; }
+
+  This means I only have to get them right once.
+
+
+

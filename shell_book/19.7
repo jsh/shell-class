@@ -1,0 +1,24 @@
+$ echo x.[ba]
+x.a x.b
+
+  But
+
+    $ echo x.{b,a}
+    x.b x.a
+
+  Also, beginners forget that x.[ba] must match something.
+
+    $ mkdir /tmp/FOO; cd /tmp/FOO
+    $ ls                  # nothing there
+    $ touch x.[ba]
+    $ ls
+    x.[ba]                # one file!
+    $ rm -f *
+    $ touch x.{b,a}
+    $ ls
+    x.a x.b
+
+  Brace expansion is text-substitution, while square brackets are a
+  file-name-match operation.
+
+

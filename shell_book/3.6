@@ -1,0 +1,27 @@
+[nN0] -> [0Nn] (and [yY1] -> [1yY])
+
+  (In the book's font, 0 and O are easily confused, so "N0" looks like "NO",
+  which is momentarily confusing.)
+
+  If the user types y, Y, or Enter, then that date is accepted. ->
+    If the user types y, Y, 1, or enter, then that date is accepted.
+
+  (A better chice here might be to drop 1/0 as allowed alternatives.)
+
+printf "%b" "You chose: $CHOICE" ->
+  printf "You chose: $CHOICE\n"
+
+  (Two problems: First, it needs a newline.    Second, here and everywhere else
+  in the book, you can replace
+
+    printf "%b" "Here's a string\n"
+
+  by the more readable
+
+    printf "Here's a string\n"
+
+  Me, I'd usually use
+
+    echo "Here's a string"
+
+  but YMMV -- your mileage may vary.)

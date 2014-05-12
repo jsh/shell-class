@@ -1,0 +1,55 @@
+This chapter seems too little, too late.
+
+The banging around smells like musty old C-shells: stuff I did 25 years ago.
+
+Dave Korn's mid-80's innovation -- providing a full-blown editor for
+command-lines -- changed my life.  I develop most of my shell scripts on the
+fly, from the command line.  When they're right, I put them into files. 
+
+If your everyday text editor is a Linux equivalent of Windows Notepad, like
+gedit, switching to this approach will take extra work.  If, however, you're
+comfortable with emacs or vi, you take to this like a duck to water.
+
+Why learn !!, when <up-arrow> or <CTRL>-p or <ESC>-k are in your firmware?  Why
+use banging, or even an arrow key, to hunt through history when you can use
+<CTRL>-r or '/' to search for what you want?
+
+Why do the equivalent of blindfold chess to fix a line that's almost right,
+when you can recall the line, then move around it quickly with commands you
+already know, like 'w' or <ESC>-f, and just edit it until it looks the way you
+want?
+
+Here's how I develope a pipeline:
+
+  type in the first command
+    look at the output
+    if it's not what I expected, recall the line and edit it
+    repeat until it's right
+
+  recall the line, go to the end, and put on a pipe symbol
+    I'm a vi-guy, so that's, <ESC>-k, 'A', '|'.  For an emacs enthusiast,
+    it's <CTRL>-p, <CTRL>-e, '|'.  Substitute arrows if you're someone who
+    still looks at the keyboard while typing. :-)
+
+  append in the next command, and look at the output of the
+    two combined steps.
+
+I repeat this cycle until I have the whole script, and then save it to a file
+and clean up the formatting.
+
+Not until then, do I have to go through bringing up an editor, editing
+commands, exiting the editor, setting file permissions, running a script, and
+debugging the result.
+
+Here's a more detailed example:
+
+  http://alumnus.caltech.edu/~copeland/work/lottery.html
+
+In this example, Copeland and I use "echo" to save the developed pipeline into
+a file, but the shell builtin, fc ("fix-command"), is easier, as is readline's
+"edit-and-execute-command", bound to either "C-xC-e" (emacs-mode) or "v"
+(vi-mode)
+
+Some readers would find it helpful to have this information early, so they can
+use visual command-editing and command-recall to play with the examples in the
+remaining chapters.

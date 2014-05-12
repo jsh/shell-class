@@ -1,0 +1,37 @@
+Forgetting that cron doesn't know my login settings.
+----------------------------------------------------
+
+
+  I (all too) often forget that cron jobs don't have my environment, and may
+  not even have my shell.
+
+  I solve this by having a crontab like this:
+
+      $ crontab -l
+      ## my crontab
+
+      SHELL=/bin/bash
+      PATH=/bin:/usr/bin:~/bin
+      BASH_ENV=/home/jsh/.bash_env
+      MAILTO=jeffrey.haemer@gmail.com
+
+      # minute (0-59)
+      # |      hour (0-23)
+      # |      |      day of the month (1-31)
+      # |      |      |    month of the year (jan-dec)
+      # |      |      |    |     day of the week (sun-mon, with 0=sun)
+      # |      |      |    |     |        command
+      # |      |      |    |     |        |
+      #
+        0     23      *    *     *        crontab -l > ~/bin/crontab.txt 2>/dev/null
+        ...
+
+
+
+  My .bash_env is typically a link to .bashrc.  Bash sources $BASH_ENV at
+  startup when it's a non-interactive, non-login shell.
+
+  (I save my crontab every night because it's under source-code management, so
+  I can recover it when I break it, or find old versions with things I want to
+  do again.)
+  

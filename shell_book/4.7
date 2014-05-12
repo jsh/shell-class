@@ -1,0 +1,11 @@
+No.  Omit this section.
+
+Bash nohups background jobs.  Try this from a new terminal window.
+
+  { sleep 20; echo DONE > /tmp/OUT; } & sleep 1; exit
+
+The "sleep 1" ensures the shell will parse everything and start up the
+other sleep correctly.
+
+The terminal window will close, and, 19 seconds later, the automatically
+nohup'd process will write "DONE" to /tmp/OUT.

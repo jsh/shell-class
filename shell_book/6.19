@@ -1,0 +1,18 @@
+function calc
+{
+  awk "BEGIN {print \"The answer is: \" $* }";
+}
+  ->
+
+    function calc
+    {
+      printf "$* = "
+      awk "BEGIN { print $* }"
+    }
+
+  (I prefer this for a couple of reasons.  First, it's got less backslashing --
+  less, "How do I do awk quoting inside shell quoting, again?" stuff.
+
+  Second, it gives visual feedback on what it's done that I like better.
+
+  As always, YMMV.)

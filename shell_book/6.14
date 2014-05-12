@@ -1,0 +1,6 @@
+printf "File not supported: %s" $FN ->
+  printf "File not supported: %s\n" $FN ->
+  printf "File not supported: $FN\n" ->
+  echo "File not supported: $FN"
+
+  (In both examples.)

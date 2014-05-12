@@ -1,0 +1,10 @@
+Pipelines create subshells
+
+  Here's an example that's clearer for me:
+
+      $ x=42
+      $ x=6 | x=9
+      $ echo $x
+      42
+
+  This shows that each end of the pipeline has its own subshell.

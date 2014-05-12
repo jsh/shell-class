@@ -1,0 +1,15 @@
+Here are some notes on The Bash Cookbook, arranged by Recipe.
+It's a Chex-mix of typo corrections, and suggestions, and comments.
+Typically, my stuff is indented, while the original is left-justified.
+Simple corrections are written like this
+
+old ->
+  new
+
+or
+
+old
+  -> new
+
+Section "20" (20.1, 20.2, ...) is "Tips and Traps for Jeff" -- they're common
+goofs of mine, even though I'm not a novice.

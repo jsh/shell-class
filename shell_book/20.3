@@ -1,0 +1,56 @@
+Forgetting That Every Command in a Make Rule is a Separate Shell
+-------------------------------------------------------------------
+
+Make is the tool that makes the most use of shell scripts.  Makefiles are full
+of shell commands.  In a make rule, though, every command line is executed by a
+separate subshell.  This won't work:
+
+  foo:
+    for i in *
+    do
+      echo $i
+    done
+
+The good news: you'll get an error message, because only the echo is a shell
+command by itself.  You have to write it like this:
+
+  foo:
+    for i in *; do echo $i; done
+
+Even when you lay it out nicely, you need the semicolons, because the shell has
+to think it's one line.
+
+  foo:
+    for i in *; \
+    do          \
+      echo $i;  \
+    done
+
+The bad news is that if it's not a syntax error, you won't see an error
+message.
+
+But wait.  It gets worse.  If I start in my home directory, and make with this
+Makefile:
+
+  default:
+          cd /tmp/foo.d
+          rm -rf *
+
+One subshell will do the cd, but the rm -rf will be done in my home
+directory, by a separate subshell.
+
+   $ cd
+   $ make
+   /tmp
+   /home/jsh
+   $ ls
+   $        # Um.  All my files are gone.
+
+I should have written it like this:
+
+   default:
+           cd /tmp/foo.d; rm -rf *
+
+I make this kind of mistake in crontabs, too.  Enumerating the times I've made
+these was a primary motivation for Georg Cantor's invention of transfinite
+cardinals.

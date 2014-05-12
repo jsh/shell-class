@@ -1,0 +1,72 @@
+Line Continuation
+
+Putting '\' at the end of a line tells the shell that the next line is just a
+continuation of this one. 
+
+It's also almost always a bad idea.
+
+Pipes, and the logical operators && and || provide automatic line-continuation,
+where needed.
+
+You can profitably break a very long command-line at these symbols.  This long
+pipeline
+
+  some_command --with --a --huge --argument --list | another_command /with/a/lot /of/long/filename/paths | ...
+
+can be written like this, instead.
+
+  some_command --with --a --huge --argument --list        |
+      another_command /with/a/lot /of/long/filename/paths |
+      ...
+
+The automatic continuations these symbols provide are better than the shell's
+continuation character, '\', because they're immune to invisible, trailing
+whitespace.
+
+You can test this right from the command line
+
+  $ ls | \<ENTER>
+  > wc -l
+  34
+
+Now, let's try a blank before the <ENTER>
+
+  $ ls | \ <ENTER>             
+  bash:  : command not found    # oops!  the shell didn't like that.
+  $ ls |<ENTER>
+  wc -l                         # this is fine
+  34
+  $ ls |         <ENTER>        #  and white space here is fine, too
+  > wc -l
+  34
+
+In scripts, you can also put comments after | or && or || , but not
+if you throw in a line-continuation character.
+
+  ls | \ # this comment is a syntax error
+  ls |   # this comment, in the middle of a pipeline, is fine.
+
+In shell scripts, the only place you ever need a line-continuation character is
+when you have to break in the middle of a simple command.  Even then, there's
+usually a better way.
+
+This:
+
+  /an/absolute/path/to/some_command_with_a_long_name --with --a --huge --argument --list /and/a/enormous/number /of/tremendously/long/filename/paths
+
+could be this 
+  /an/absolute/path/to/some_command_with_a_long_name   \
+    --with --a --huge --argument --list                \
+    /and/a/enormous/number /of/tremendously/long/filename/paths
+
+but this -- though it's slightly longer -- is easier to read, debug, and
+maintain:
+
+  CMD=/an/absolute/path/to/some_command_with_a_long_name
+  ARGS='--with --a --huge --argument --list'
+  FILES='/and/a/enormous/number /of/tremendously/long/filename/paths'
+
+  $CMD $ARGS $FILES
+
+You often will need continuation characters in the shell commands found in
+Makefiles, but make is a different subject.

@@ -1,0 +1,7 @@
+if [ -f $SCRIPT -a -x $SCRIPT ] ->
+  if [ -f $SCRIPT ] && [ -x $SCRIPT ]
+
+  (I break compound test statements into pieces, now that "test" is a builtin.
+  It removes the burden of remembering '-a'/'-o', and provides shortcut
+  evaluation.  The syntax of "test" can get messy; it's easier to eliminate the
+  need to debug it by turning it into shell syntax.)

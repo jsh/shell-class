@@ -1,0 +1,35 @@
+We like using the word function because it is very clear and readable
+
+  One caveat: it's not portable.  Works fine for bash, but not for, for
+  example, dash.  Dash, the Debian Almquist shell, is the default link to
+  /bin/sh on Debian distros, like Ubuntu.
+
+  If you define functions like this
+
+      name() {
+        body
+      }
+
+  or this
+
+      name () {
+        body
+      }
+
+  instead of this
+
+      function name() {
+        body
+      }
+
+  or this
+
+      function name {
+        body
+      }
+
+
+  they'll work fine in either.
+
+  On out-of-the-box Debian distros, the second form will produce a syntax
+  error.

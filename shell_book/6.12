@@ -1,0 +1,25 @@
+let's face it -- that's not going to work for 500 iterations (Yes, you could
+nest loops 5x10, but come on!)
+
+  What will work is this:
+
+    for i in {1..500}
+    do
+      echo $i
+    done
+
+  I can't remember ever seeing a "for ((;;))" loop in a script.  Before {a..b},
+  I used "seq".
+
+    for i in $(seq 500)
+    do
+      echo $i
+    done
+
+  Though, yeah, some folks used "while"
+
+    i=0
+    while (( i++<500 ))
+    do
+      echo $i
+    done

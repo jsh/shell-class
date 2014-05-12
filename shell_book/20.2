@@ -1,0 +1,17 @@
+Forgetting that loops leave the loop variable set
+-------------------------------------------------
+
+      $ for i in {0..5}
+      > do
+      >  echo $i
+      > done
+      0
+      1
+      2
+      3
+      4
+      5
+      $ echo $i
+      5
+
+Oops!  $i is not a local variable in the for loop.  It's global.
