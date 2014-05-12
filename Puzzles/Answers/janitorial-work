@@ -1,0 +1,31 @@
+Here's one solution:
+
+  $ rm -rf $( for v in $(ls | sed 's/_devel-.*//' | uniq); do ls -rd $v* | tail --lines=+3 ; done )
+
+In pieces, that's
+
+- List the version numbers
+
+  $ ls | sed 's/_devel-.*// | uniq
+
+- Loop through those versions
+
+  $ for v in $(ls | sed 's/_devel-.*//' | uniq); do ... ; done  
+
+- List every incarnation of version $v, starting with the most recent.
+
+  $ ls -rd $v*
+
+- List all but the most recent two.
+
+  $ ls -rd $v* | tail --lines=+3
+
+- Put it all together to list all but the most recent two of each version.
+
+  $ for v in $(ls | sed 's/_devel-.*//' | uniq); do ls -rd $v* | tail --lines=+3 ; done
+
+- Remove all those listed directories.
+
+  $ rm -rf $( for v in $(ls | sed 's/_devel-.*//' | uniq); do ls -rd $v* | tail --lines=+3 ; done )
+
+See http://blog.commandlinekungfu.com/2010/10/episode-116-stop-haemer-time.html for more discussion.

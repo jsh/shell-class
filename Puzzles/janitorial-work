@@ -1,0 +1,15 @@
+I'm doing janitorial work on some old archives. What I'm cleaning up typically looks like this:
+
+  $ ls -F
+  1.2.00.00_devel-10082410/  1.2.00.00_devel-10082513/  2.0.00.00_devel-10082508/
+  1.2.00.00_devel-10082411/  1.2.00.00_devel-10082515/  2.0.00.00_devel-10082510/
+  1.2.00.00_devel-10082413/  1.2.00.00_devel-10082713/  2.0.00.00_devel-10082512/
+  1.2.00.00_devel-10082507/  2.0.00.00_devel-10082410/  2.0.00.00_devel-10082514/
+  1.2.00.00_devel-10082509/  2.0.00.00_devel-10082412/  2.0.00.00_devel-10082712/
+  1.2.00.00_devel-10082511/  2.0.00.00_devel-10082414/  2.0.00.00_devel-10082714/
+
+These are directories that hold versions of code built at different times.  Right now, the versions are 1.2.00.00 and 2.0.00.00.  The trailing numbers are date stamps (2.0.00.00_devel-10082414 is from 2010, August 24, 1400h).
+
+I'd like to discard all but the two most recent incarnations of each version.  I have no control over the name scheme, and the version numbers will vary.  (The list above has two but there could be more or fewer.)
+
+What's a bash one-liner to do this?
