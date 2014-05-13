@@ -1,0 +1,25 @@
+Consider the following file:
+
+  $ cat warn
+  #!/bin/false
+  warn() { [ "$@" ] && echo "$@" >&2; }
+  return 2>/dev/null
+  warn # this should be a no-op
+  warn "this should not appear" 2>/dev/null
+  warn "this should be the only output"
+
+- What happens if you do this?
+  $ chmod +x warn
+  $ ./warn
+
+- What happens if you do this
+
+  $ cat foo
+  #!/bin/bash
+  source warn
+  warn "Hello world"
+  $ ./foo
+
+- What happens if you do this?
+
+  $ bash warn

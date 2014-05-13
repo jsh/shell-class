@@ -1,0 +1,43 @@
+In early shells, there was no comment character. Instead, folks used this
+
+  : here is a comment
+
+() Does this still work? How?
+
+() What's the difference between this
+
+  # put <filename> here
+
+and this?
+
+  : put <filename> here
+
+() This is a comment
+
+  ##### Big comment #####
+
+  Why isn't this?
+
+  ::::: Big Comment :::::
+
+() This is a common idiom. What's it doing?
+
+  : ${foo:=bar}
+
+() Ditto for this.
+
+  while : ; do echo yes; done
+
+() How could you use this?
+
+  : <<__EOF__
+  command1
+  command2
+  command3
+  __EOF__
+
+() This is useful, too. Why?
+
+  set -x
+  : === Kilroy was here
+  date

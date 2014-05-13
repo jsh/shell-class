@@ -1,0 +1,58 @@
+  : here is a comment
+
+() Does this still work? How?
+
+A: Yep. : is a builtin synonym for true.
+"here is a comment" is an arg, which is ignored.
+
+() What's the difference between this
+
+  # put <filename> here
+
+and this?
+
+  : put <filename> here
+
+A: '<' and '>' are I/O redirections to the ':' command, which will read from file "filename" , and truncate file "here".
+
+() This is a comment
+
+  ##### Big comment #####
+
+  Why isn't this?
+
+  ::::: Big Comment :::::
+
+A: There is no command ":::::"
+
+() This is a common idiom. What's it doing?
+
+  : ${foo:=bar}
+
+A: Setting $foo to bar if foo is null or unset, as a side effect.
+
+() Ditto for this.
+
+  while : ; do echo yes; done
+
+A: It's an infinite loop.
+
+() How could you use this?
+
+  : <<__EOF__
+  command1
+  command2
+  command3
+  __EOF__
+
+A: commenting out blocks of code.
+
+() This is useful, too. Why?
+
+  #!/bin/bash -eux
+
+  : === Kilroy was here
+  date
+
+A: Inserts comments in the script's output.
+
