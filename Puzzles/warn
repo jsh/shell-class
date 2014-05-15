@@ -1,3 +1,6 @@
+What's each line doing, and how could you use this file?
+
+
 #!/bin/false
 warn() { [ "$@" ] && echo "$@" >&2; }
 return 2>/dev/null

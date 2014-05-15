@@ -1,0 +1,10 @@
+#!/bin/false                        # prevents execution as a script
+warn() {
+  [ "$@" ] && echo "$@" >&2; exit 1;
+}
+return 2>/dev/null                  # return if sourced, don't complain if not
+#### unit tests from here down
+#### run these as "bash <filename>"
+warn # this should be a no-op
+warn "this should not appear" 2>/dev/null
+warn "this should be the only output"
