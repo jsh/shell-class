@@ -1,0 +1,5 @@
+Change your PS1 so that it uses color to tell you whether the last command succeeded: red for failure, green for success.
+
+Google for ANSI color codes to see how to turn text colors,
+and search the bash manpage for PS1 and PROMPT_COMMAND
+to see a clean way to set the prompt.

@@ -1,0 +1,26 @@
+# set up a pair of prompts -- one for success, one for failure
+export _r="\[\e[01;31m\]"
+export _g="\[\e[01;32m\]"
+export _n="\[\e[0m\]"
+
+_success=${_g}'\$'${_n}' '
+_failure=${_r}'\$'${_n}' '
+
+prompt() {
+  case ${1:-normal} in
+    short)  _base='' ;;
+    normal) _base='\u@\h:\W' ;;
+    long)   _base='\u@\h:\w' ;;
+  esac
+}
+
+put_prompt() {
+  if [[ $? == 0 ]]; then
+    PS1=$_base$_success
+  else
+    PS1=$_base$_failure
+  fi
+}
+
+export PROMPT_COMMAND=put_prompt
+prompt
