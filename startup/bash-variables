@@ -1,5 +1,26 @@
-# .bash-variables: shell variables of various sorts
+# add ~/bin to my path
+[[ $PATH =~ $HOME/bin[:$] ]] || PATH+=:~/bin
 
-PATH+=:/c/Program\ Files\ \(x86\)/Git/bin
-export EDITOR=/bin/vim
-export GIT_EDITOR=$EDITOR
+# use my editor
+export EDITOR=/usr/bin/vi
+
+# make command-line work easier
+
+## basic behaviors
+shopt -s cdspell dirspell globstar
+set -o vi
+set -o ignoreeof
+
+## know my home directory
+export CDPATH+=":~"; set -P
+
+## keep lots of history
+export HISTFILESIZE=100000000
+export HISTSIZE=100000
+
+## don't overwrite the history of other sessions currently in progress
+shopt -s histappend
+
+## don't put duplicate lines in the history and ignore same sucessive entries.
+export HISTCONTROL=ignoreboth
+export LOCATE_PATH=~/var/mlocate.db

@@ -1,15 +1,32 @@
-# .bash-functions: bash functions
+# functions
 
-## set up a git-controlled directory
-git-started() {
+# job control
+
+cdjob() {
+  local d
+
+  : ${1:?"usage $FUNCNAME %N"}
+
+  d=$(jobs $1 | perl -lane 'print "cd $1" if m/.*\(wd: (.*)\).*/')
+  test "$d" && eval $d
+}
+
+# starting a git repo
+
+git-startup() {
   git init ${1:?"usage: $FUNCNAME <dir>"}
   cd $1
   git flow init -d
 }
 
-## define differing prompts for success and failure
+# set up a pair of prompts -- one for success, one for failure
+export _r="\[\e[01;31m\]"
+export _g="\[\e[01;32m\]"
+export _n="\[\e[0m\]"
 
-### prompt length
+_success=${_g}'\$'${_n}' '
+_failure=${_r}'\$'${_n}' '
+
 prompt() {
   case ${1:-normal} in
     short)  _base='' ;;
@@ -18,22 +35,13 @@ prompt() {
   esac
 }
 
-### prompt colors
-export _r="\[\e[01;31m\]"
-export _g="\[\e[01;32m\]"
-export _n="\[\e[0m\]"
-
-_success=${_g}'\$'${_n}' '
-_failure=${_r}'\$'${_n}' '
-
-### spit out the prompt
 put_prompt() {
-  if [ $? = 0 ]; then
+  if [[ $? == 0 ]]; then
     PS1=$_base$_success
   else
     PS1=$_base$_failure
   fi
 }
 
-### invoke put_prompt() for every PS1
 export PROMPT_COMMAND=put_prompt
+prompt
