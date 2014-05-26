@@ -1,9 +1,0 @@
-Not just a town in Panama or the lower end of your gastrointestinal tract.
-
-while :; do ...
-: ${top:=~}
-
-set -x; :== this is a comment
-
-[ "$1" = "bar" ] vs. [ "${1-}" = "bar" ]
-[ "$DEBUG" ] && echo "Here I am" vs. [ "${DEBUG-}" ] && echo "Here I am"
