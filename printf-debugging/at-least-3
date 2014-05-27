@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if (( $1 < 3 )); then
-  echo too small!!
-else
-  echo okay!
-fi
