@@ -1,0 +1,14 @@
+# with "${!"
+$ cat p1
+
+printval() {
+  echo "$1 is '${!1}'"
+}
+
+# with "declare -n"
+$ cat p2
+
+printval() {
+  declare -n _myval=$1
+  echo "$1 is '$_myval'"
+}

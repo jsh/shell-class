@@ -1,0 +1,13 @@
+Write a function that prints a variable and its value.
+
+Example:
+
+$ source printval.sh
+$ x=3
+$ printval x
+x is '3'
+
+(a) Write it using "${!"
+(b) Write it using "declare -n"
+
+Consult the bash man page for these constructs if you don't know them.
