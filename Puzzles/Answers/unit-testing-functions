@@ -1,0 +1,37 @@
+
+  $ cat warn
+  #!/bin/false
+  warn() { [ "$@" ] && echo "$@" >&2; }
+  return 2>/dev/null
+  warn # this should be a no-op
+  warn "this should not appear" 2>/dev/null
+  warn "this should be the only output"
+
+- What happens if you do this?
+  $ chmod +x warn
+  $ ./warn
+
+A: The shebang line makes the command fail, and do nothing.
+
+- What happens if you do this
+
+  $ cat foo
+  #!/bin/bash
+  source warn
+  warn "Hello world"
+  $ ./foo
+
+A: The warning appears on stderr.
+
+- What happens if you do this?
+
+  $ bash warn
+
+A: The unit tests are executed.
+
+-Why?
+
+A:
+- The shebang line is now a comment.
+- The return statement is ignored because it's not in a sourced file or a function.
+- The error message about the return statement is discarded (sent to /dev/null).

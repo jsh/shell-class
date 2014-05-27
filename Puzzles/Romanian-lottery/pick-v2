@@ -1,0 +1,17 @@
+#!/bin/bash -eu
+
+onepick() {
+  for i in {01..49}; do
+    echo $i $RANDOM
+  done |
+  sort -n -k 2 |
+  head -6 |
+  while read i j; do
+    echo $i
+  done |
+  paste -s -d' '
+}
+
+for i in {1..3}; do
+  onepick
+done

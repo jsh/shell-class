@@ -1,0 +1,6 @@
+For me, pick-v1 is easier to read.
+It's also less subject to maintenance drift. (The more lines there are, the more things there are to get wrong.)
+
+Another big difference is speed. Try timing 1000 iterations.
+
+Between pick-v1 and pick-v3, I think the choice is less clear. Sequestering one-pick into a function increases readability in some ways.
