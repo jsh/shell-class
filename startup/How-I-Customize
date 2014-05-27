@@ -1,0 +1,9 @@
+To keep my personal shell-environment mods organized, I append these lines to my .bashrc:
+
+  # local mods
+  if [ -r ~/.bash-local ]; then
+    source ~/.bash-local
+  fi
+
+What do you do with yours?
+Do you have any personal modifications you'd like to share?
