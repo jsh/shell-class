@@ -1,2 +1,0 @@
-    PROMPT_COMMAND=' [ $? -eq 0 ] && PS1=":) " || PS1=":( " '
-
