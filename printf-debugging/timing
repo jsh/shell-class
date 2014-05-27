@@ -1,8 +1,0 @@
-#!/bin/bash -eux
-
-PS4='[$(date +%T)] '
-
-echo hello
-sleep 3
-echo goodbye
-exit 0
