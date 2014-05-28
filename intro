@@ -1,26 +1,35 @@
-A friend of mine went to a job interview, and was asked to write a piece of code that looked for instances of a word in a file.
+A friend of mine went to a job interview, and was asked to write a piece
+of code that looked for instances of a word in a file.
 
 He went to the whiteboard and wrote
 
 grep -w word file
 
-"Yeah, yeah," the interviewer said. "But not that. I'm looking to see how you program."
+"Yeah, yeah," the interviewer said. "But not that. I'm looking to see
+how you program."
 
+My response would be, "That *is* how I program."
 
-My response to that is, "That *is* how I program."
-
-My language of first resort is the shell. My libraries and toolkits are /bin and /usr/bin. MyIDE consists of a text editor and the command line.
+My language of first resort is the shell. My libraries and toolkits are
+/bin and /usr/bin. My IDE is the command line.
 
 "Oh, but I mean for real programming."
 
-And why, exactly, if confronted with "find all instances of a word in a file" would I ever hire someone who wouldn't solve that with "grep -w word file"?
+Who, if confronted with "find all instances of a word in a file" would
+hire someone who didn't solve that with "grep -w word file"?
 
-Another friend, hired to lead a test automation group, sent me a chunk of Python to test a capability. I sent back a shell script, a third the size, that did the same task but was more capable and ro
+Another friend, hired to lead a test automation group, sent me a chunk
+of Python he'd written to test a capability. I sent him back a shell
+script, that did the same job, but was more capable and robust, adding,
+"... but I realize the company wants all the tests in Python." It was
+also only a third the size of his.
 
-bust, adding, "... but I realize the company wants all the tests in Python." He said, "That's silly. Of course we'll use your test instead. It works and it's better."
+He said, "Of course we'll use your test instead. It's better."
 
-Shell scripts are programs, plain and simple. Sometimes, the shell is the best programming language for the job.
+Shell scripts are programs, plain and simple. Sometimes, the shell is
+the best programming language for the job.
 
 Ah, but when?
 
-We'll explore what the shell does, what it does well, and perhaps help open your minds a bit.
+We'll explore what the shell does, what it does well, and perhaps help
+open your minds a bit.
