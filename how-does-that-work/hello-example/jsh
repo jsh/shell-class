@@ -1,5 +1,5 @@
 #!/bin/bash
 
 while read i; do
-	eval $i
+	( exec $i )
 done
