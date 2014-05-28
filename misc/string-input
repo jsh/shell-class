@@ -1,0 +1,18 @@
+Compare and contrast:
+
+(1)
+echo 'hello
+world' | od -c
+
+(2)
+cat <<__EOF__ | od -c
+hello
+world
+__EOF__
+
+(3) cat <<< "hello
+world" | od -c
+
+(4) mkfifo /tmp/fifo
+echo 'hello
+world' > /tmp/fifo & cat /tmp/fifo
