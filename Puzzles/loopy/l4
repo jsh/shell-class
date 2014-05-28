@@ -1,0 +1,10 @@
+#!/bin/bash
+
+tens=(0 10 20 30 40)
+n=${#tens[@]}
+
+i=0
+while [ $i -lt $n ] ; do
+  echo ${tens[$i]}
+  i=$(expr $i + 1)
+done

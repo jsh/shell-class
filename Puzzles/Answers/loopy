@@ -1,0 +1,34 @@
+Each of these scripts does the same thing. 
+
+(1) Read each script to understand how it works; convince yourself that
+if you come across loops like these in someone else's script, you can
+figure out what they're doing.
+
+  If you need help, run "man bash"
+
+(2) Are they all about the same speed? You can time them like this:
+
+  $ time for i in {1..1000}; do ./l1 ; done > /dev/null
+
+  l4 is much slower.
+
+(3) How's the speed change if you don't send the output to /dev/null?
+
+  The slowdown's quite noticeable.
+
+(4) How much of the timing loop, above, is overhead from the test itself?
+
+  Almost none.
+
+  $ for i in {1..1000}; do true; done > /dev/null
+
+(5) Write a script to do the loop some other way. Why's your new way better? Why's it worse?
+
+  # Here's another. YMMV.
+
+  set 0 10 20 30 40
+  until (( $# == 0 )); do
+    echo $1
+    shift
+  done
+

@@ -1,7 +1,0 @@
-tens=( 0 10 20 30 40 )
-
-i=0
-while (( i < ${#tens[@]} )); do
-  print ${tens[i]}
-  i=$(expr $i + 1)
-done

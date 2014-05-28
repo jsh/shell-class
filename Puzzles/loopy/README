@@ -1,0 +1,15 @@
+Each of these scripts does the same thing. 
+
+(1) Read each script to understand how it works; convince yourself that
+if you come across loops like these in someone else's script, you can
+figure out what they're doing.
+
+(2) Are they all about the same speed? You can time them like this:
+
+  $ time for i in {1..1000}; do ./l1 ; done > /dev/null
+
+(3) How's the speed change if you don't send the output to /dev/null?
+
+(4) How much of the timing loop, above, is overhead from the test itself?
+
+(5) Write a script to do the loop some other way. Why's your new way better? Why's it worse?
