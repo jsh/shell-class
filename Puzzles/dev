@@ -1,0 +1,14 @@
+What can you do with these special files?
+
+- /dev/stdin, /dev/stdout, /dev/stderr
+- /dev/tty
+- /dev/null
+
+How about these?
+
+- /dev/null
+- /dev/urandom
+- /dev/zero
+- /dev/full
+
+How can you examine their contents?

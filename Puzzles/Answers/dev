@@ -1,0 +1,44 @@
+What can you do with these special files?
+
+- /dev/stdin, /dev/stdout, /dev/stderr
+- /dev/tty
+- /dev/null
+
+Try this program
+
+  $ cat tester
+  #!/bin/bash
+
+  echo 1 
+  echo 2 >&2
+  for i in /dev/stdout /dev/stderr /dev/tty; do
+    echo $i > $i
+  done
+  $ ./tester > /dev/null
+  $ ./tester 2> /dev/null
+
+What are these?
+
+- /dev/null
+
+An always empty file.
+
+- /dev/urandom
+
+Pseudo-random bytes.
+
+- /dev/zero
+
+An endless source of nul bytes.
+
+- /dev/full
+
+A full device.
+
+
+  $ cat specials
+  #!/bin/bash
+
+  dd if=$1 of=/dev/stdout count=1 | od -c
+
+  $ ./specials /dev/null # for example
