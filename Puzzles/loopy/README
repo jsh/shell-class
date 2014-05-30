@@ -12,4 +12,7 @@ figure out what they're doing.
 
 (4) How much of the timing loop, above, is overhead from the test itself?
 
-(5) Write a script to do the loop some other way. Why's your new way better? Why's it worse?
+(5) Where there are speed differences between the scripts, can you figure
+out why? (What does that tell you about your own scripts?)
+
+(6) Write a script to do the loop some other way. Why's your new way better? Why's it worse?
