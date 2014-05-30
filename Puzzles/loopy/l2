@@ -1,1 +1,6 @@
-for i in {0..40..10}; do echo $i; done
+x=0
+while : ; do
+  printf "%d\n" $(( x*10 ))
+  (( ++x > 4 )) && break
+done
+  
