@@ -1,0 +1,5 @@
+Just because I recommend bottom-up development doesn't mean you *can't* do Test-Driven Development (TDD).
+
+See https://github.com/jsh/makepath for an example of TDD in the shell.
+
+The problem is from Mark Sobell.  The stimulus for the solution is from Sean Reifschneider.
