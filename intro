@@ -26,8 +26,9 @@ also only a third the size of his.
 
 He said, "Of course we'll use your test instead. It's better."
 
-Shell scripts are programs, plain and simple. Sometimes, the shell is
-the best programming language for the job.
+Shell scripts aren't Python with awkward syntax. File manipulation isn't
+something you do with mice. Honest. Shell scripts are programs, plain and
+simple. Sometimes, the shell is the best programming language for the job.
 
 Ah, but when?
 
