@@ -1,14 +1,12 @@
+Background jobs are great. What if I need more commands that know about them than the shell gives me out-of-the-box?
 Write a function that does a cd to a numbered job.
 
-Example:
-
-  $ cd /tmp
-  $ ./myscript &
+  $ git clone git@git-server:myproject.git      # check out a mass of code
+  $ cd myproject; make &> make.OUT &            # kick off a massive build
   [1] 19096
-  $ cd /etc
-  $ sleep 1000 &
-  [2] 19098
-  $ cd
+  $ cd /here; cd /there; cd /and-everywhere     # wander around doing other errands while it works 
+  # Let's go look back to how the make is progressing
   $ cdjob %1
-  $ pwd
-  /tmp
+  $ tail -f make.OUT
+
+Why does it have to be a function?
