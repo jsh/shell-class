@@ -1,11 +1,10 @@
-http://www.usenix.org/publications/library/proceedings/bos94/full_papers/haemer.a
-
+Like C, the shell is a programming language. And, just as you can write programming languages in C, you can write them in the shell. Here's an example: http://www.usenix.org/publications/library/proceedings/bos94/full_papers/haemer.a
 
 I just skimmed through the first part of the Usenix paper, and they seem to have removed all instances of the word "Posix" when they formatted it.  If you see something like " -.2" or " -conforming", read it as " Posix-.2" and "Posix-conforming."  I suspect this was text that originally had small caps, so things like "Unix" will also be gone.  
 
 In other words, if it looks like there's a missing word, just make one up and stick it in.  :-) 
 
-I think the code examples all mimic C++ code examples in papers by other folks.
+The code examples deliberately mimic C++ code examples in papers by other folks.
 
 The back story on the paper is that I wrote it while working for a company that had been hired, by IBM, to implement a make replacement that they'd been sold on by some junior consultant. 
 
