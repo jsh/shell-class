@@ -1,11 +1,11 @@
-For Doug Miller.
+Doug Miller asked me what shell questions he could ask a job candidate. I suggested showing candidates this script:
 
-#!/bin/bash
-for i in $*; do
-  [ -f $i ] && mv $i $i.bak
-done
+  #!/bin/bash
+  for i in $*; do
+    [ -f $i ] && mv $i $i.bak
+  done
 
-  I might ask some or all of:
+and then asking questions like this:
 
   (1) What's the first line do, and does it have a name?
   (2) What's the "for i in $*" do?
@@ -14,6 +14,8 @@ done
   (5) What's the script do?
   (6) What can go wrong with it, and so what tests would you write for it?
   (7) Extra credit 0: If something does go wrong, what's the script's exit status?  And if nothing does?  How can you learn its exit status?
-  (8) Extra credit 1: how would you re-write this script to improve it?
+  (8) Extra credit 1: How would you re-write this script to improve it?
   (9) Extra credit 2: What single command could you use instead of this script?
+  (10) Extra credit 3: Who wrote it?
 
+What questions would you ask?

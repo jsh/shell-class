@@ -1,0 +1,43 @@
+(1) What's the first line do, and does it have a name?
+
+- The shebang line starts with "#!", the magic number \043\041.
+ 
+(2) What's the "for i in $*" do?
+
+- Loops through all the scripts arguments.
+
+(3) What's the [ -f $i ] do?
+
+- Tests for the existence of a file.
+
+(4) What's the && do?
+
+- Says only execute the RHS if the LHS succeeds.
+
+(5) What's the script do?
+
+- Renames all the files passed to the script on the command-line.
+
+(6) What can go wrong with it, and so what tests would you write for it?
+
+- Lots. Be creative.
+
+(7) Extra credit 0: If something does go wrong, what's the script's exit status?  And if nothing does?  How can you learn its exit status?
+
+- $? != 0
+
+(8) Extra credit 1: How would you re-write this script to improve it?
+
+- Depends on your answer to #6.
+
+(9) Extra credit 2: What single command could you use instead of this script?
+
+- rename(1)
+
+(10) Extra credit 3: Who wrote it?
+
+- Larry Wall, the author of patch(1) and perl(1)
+
+What questions would you ask?
+
+- YMMV
