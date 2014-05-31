@@ -1,0 +1,8 @@
+#!/bin/bash -eu
+# November 21 is "World Hello Day"
+
+printf 'hello, '
+: To sleep, perchance to Dream;
+sleep 10
+echo world
+exit 0
