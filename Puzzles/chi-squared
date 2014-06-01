@@ -1,0 +1,13 @@
+For the statistically-minded:
+
+We generated 100000 random integers from 1..49 with this:
+
+for i in {1..100000}; do echo $((RANDOM%49+1)); done | sort -n | uniq -c 
+
+You can test goodness-of-fit to a discrete, uniform distribution U(1,49) with a simple, chi-squared test.
+
+chi-squared = Sum[ (observed - expected)^2/expected ]
+
+The mean of the chi-squared here would be 48 (the degrees-of-freedom), and the variance, twice that. (Standard deviation is the square root of the variance).
+
+To make the arithmetic easier, expand the range to 0..50, then test for uniformity on the command line.

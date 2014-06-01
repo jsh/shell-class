@@ -1,0 +1,3 @@
+for i in {1..100000}; do echo $((RANDOM%51)); done | sort -n | uniq -c | while read n i; do echo $(( (n -2000 )**2 )); done| awk '{ sum += $1}; END{print sum/2000}'
+
+I get answers about twice what I'd expect. Since my standard deviation is 10, this means $RANDOM isn't random enough.
