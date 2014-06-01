@@ -1,0 +1,8 @@
+Hal Pomeranz asks "How many commands could we emulate if we only had the shell?"
+
+http://blog.commandlinekungfu.com/2009/09/episode-61-just-sit-right-back-youll.html
+
+This is an echo of Tom Christiansen's "Perl Power Tools" project, which aims to reimplement all classic Unix commands in Perl.
+(PPT gives you the Unix commands on any OS that supports Perl, not just Linux and Unix.)
+
+http://alumnus.caltech.edu/~copeland/work/PDF/1999-08-ppt.pdf
