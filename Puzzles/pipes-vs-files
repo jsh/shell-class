@@ -1,0 +1,32 @@
+  "You see, wire telegraph is a kind of a very, very long cat. You pull
+  his tail in New York and his head is meowing in Los Angeles. Do you
+  understand this? And radio operates exactly the same way: you send
+  signals here, they receive them there. The only difference is that
+  there is no cat."
+
+      -- Albert Einstein
+
+Piping
+
+  $ first_program | second_program
+
+means this
+
+  $ first_program > /tmp/$$
+  $ second_program < /tmp/$$
+  $ rm /tmp/$$
+
+but there is no file
+
+Try these, on the command line:
+
+  echo $(( $RANDOM % 2 ))
+  for i in {1..10}; do echo $(( RANDOM%2 )); done
+  for i in {1..10}; do echo $(( RANDOM%2 )); done | grep 0
+  for i in {1..10}; do echo $(( RANDOM%2 )); done | grep 0 | wc -l
+  for i in {1..100}; do echo $(( RANDOM%2 )); done | grep 0 | wc -l
+  for i in {1..1000}; do echo $(( RANDOM%2 )); done | grep 0 | wc -l
+  for i in {1..1000000}; do echo $(( RANDOM%2 )); done | grep 0 | wc -l
+
+(1) In the last line, how big would the temporary files be?
+(2) Do a version with pipes and time it. Then, convert that into a version with temporary files. Time that.

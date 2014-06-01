@@ -1,0 +1,5 @@
+(1) In the last line, how big would the temporary files be?
+About 3M
+
+(2) Do a version with pipes and time it. Then, convert that into a version with temporary files. Time that.
+Tempfiles take about twice as long. The big difference is in system time -- time the kernel is doing file I/O.
