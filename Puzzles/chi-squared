@@ -4,10 +4,16 @@ We generated 100000 random integers from 1..49 with this:
 
 for i in {1..100000}; do echo $((RANDOM%49+1)); done | sort -n | uniq -c 
 
-You can test goodness-of-fit to a discrete, uniform distribution U(1,49) with a simple, chi-squared test.
+You can test goodness-of-fit to a discrete, uniform distribution with a simple, chi-squared test.
 
 chi-squared = Sum[ (observed - expected)^2/expected ]
 
-The mean of the chi-squared here would be 48 (the degrees-of-freedom), and the variance, twice that. (Standard deviation is the square root of the variance).
+To make the arithmetic easier, let's expand the range to 0..50, then test for uniformity on the command line.
 
-To make the arithmetic easier, expand the range to 0..50, then test for uniformity on the command line.
+With 51 buckets, and 2000 per bucket, that means 102000 numbers. There's fifty degrees of freedom, so the expected value is 50, the standard deviation is 10, and you can generate the distribution itself with this command:
+
+  $ for i in {1..102000}; do echo $((RANDOM%51)); done | sort -n | uniq -c 
+
+Generate the chi-squared of what you see by adding to this pipeline. Try to do it entirely on the command line -- don't put the command in a file until you're done.
+
+Hint: look at the documentation for the "read" built-in, with either "man bash" or "help read."
