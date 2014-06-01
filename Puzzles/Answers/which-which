@@ -1,0 +1,18 @@
+#!/bin/bash -eu
+
+[ ${PATH: -1} = ':' ] && PATH+=.
+[ ${PATH:0:1} = ':' ] && PATH=.$PATH
+PATH=${PATH//::/:.:}
+
+for i in ${PATH//:/ }; do
+  if [ -x $i/$1 ]; then
+    echo $i/$1
+    break
+  fi
+done
+
+
+Extra credit:
+
+- What does "file $(which which)" say?
+

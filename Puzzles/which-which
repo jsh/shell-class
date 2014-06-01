@@ -1,0 +1,21 @@
+Sometimes, you have a choice between an executable in the filesystem, like which(1),
+and a shell built-in, like "type -p". How much difference can the choice make?
+
+(1) Time the differences.
+time for i in /usr/bin/*; do which $(basename $i); done > /dev/null
+time for i in /usr/bin/*; do type -p $(basename $i); done > /dev/null
+
+(2) How much overhead does is the loop+print contribute?
+time for i in /usr/bin/*; do echo $(basename $i); done > /dev/null
+
+(3) Write your own version of which, entirely in the shell.
+
+Hint: echo ${PATH//:/ }
+Hint: What does a colon at the beginning or end of your path mean? Are you taking that into account? What about "::"?
+
+(4) What do these tell you?
+
+  $ type which
+  $ type type
+  $ which which
+  $ which type
