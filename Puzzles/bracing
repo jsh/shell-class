@@ -1,0 +1,24 @@
+The determined Real Programmer can write FORTRAN programs in any language.
+-- Ed Post, "Real Programmers Don't Use PASCAL."
+
+Rewrite this to use brace expansion:
+
+file[0]=foo
+file[1]=bar
+file[2]=mumble
+suffix[0]=.c
+suffix[1]=.h
+suffix[2]=.txt
+
+nfiles=${#file[@]}
+nsuffixes=${#suffix[@]}
+
+i=0
+while [ $i -lt $nfiles ]; do
+  j=0
+  while [ $j -lt $nsuffixes ]; do
+    mv ${file[$i]}${suffix[$j]} ${file[$i]}${suffix[$j]}.bak
+    (( j = j + 1 ))
+  done
+  (( i = i + 1 ))
+done

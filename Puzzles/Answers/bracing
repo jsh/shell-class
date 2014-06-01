@@ -1,0 +1,6 @@
+for i in {foo,bar,mumble}.{c,h,txt}; do
+  mv $i $i.bak
+done
+
+http://en.wikipedia.org/wiki/Real_Programmers_Don't_Use_Pascal
+Use the Shell, Luke.
