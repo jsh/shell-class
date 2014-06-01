@@ -1,5 +1,0 @@
-#!/bin/bash
-
-while read i; do
-	eval $i
-done

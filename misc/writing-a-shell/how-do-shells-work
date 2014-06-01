@@ -1,9 +1,0 @@
-Title: Under the Sheets
-
-Theme: How does the shell work?
-
-A. Walk-through: ps, a variety of simple scripts with sleeps, #!
-B. Question: What's atime? How could you use ls -lrt? Why doesn't it work?
-
-Exercise: make a function to prep a file for "ls -lrt"
-Exercise: Make a shell with eval and a while loop.
