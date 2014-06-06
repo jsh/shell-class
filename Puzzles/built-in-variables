@@ -1,0 +1,11 @@
+The bash man page is a font of wisdom.
+
+(1) What does "declare -p RANDOM" tell you about the variable?
+
+(2) "echo $RANDOM" reads the value of RANDOM
+What happens when you write to it? (Even if you read it, try it.)
+
+(3) We use PS4='[`$(date +%T)`] ' to time scripts.
+Find another way by looking at the bash man page section on "PROMPTING"
+
+(4) Write a program to see whether these two ways have different speeds.

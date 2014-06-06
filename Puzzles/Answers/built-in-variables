@@ -1,0 +1,41 @@
+The bash man page is a font of wisdom.
+
+(1) What does "declare -p RANDOM" tell you about the variable? Is it read-only?
+
+  $ declare -p RANDOM
+  declare -i RANDOM="5896"
+
+It's an integer variable, but *not* read-only.
+
+(2) "echo $RANDOM" reads the value of RANDOM
+What happens when you write to it? (Even if you found the answer in the man page, try it.)
+
+  $ RANDOM=1
+  $ echo $RANDOM
+  16807
+
+(3) We use PS4='[`$(date +%T)`] ' to time scripts.
+Find another way by looking at the bash man page section on "PROMPTING"
+PS4='[\t] '
+
+(4) Write a program to see whether these two ways have different speeds.
+
+#!/bin/bash -eux
+
+exec &> $0.OUT
+
+PS4='[\t] '
+
+time for i in {0..100000}; do
+  true
+done 
+echo first
+
+PS4='[$(date +%T)] '
+
+time for i in {0..100000}; do
+  true
+done
+echo second
+
+3 seconds vs. 10 minutes: a 200-fold slowdown for the version that forks a subshell.
