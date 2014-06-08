@@ -1,9 +1,0 @@
-What's each line doing, and how could you use this file?
-
-
-#!/bin/false
-warn() { [ "$@" ] && echo "$@" >&2; }
-return 2>/dev/null
-warn # this should be a no-op
-warn "this should not appear" 2>/dev/null
-warn "this should be the only output"
