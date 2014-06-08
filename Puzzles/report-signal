@@ -1,4 +1,4 @@
-Report the signal received.
+Write a script to report any signal it receives.
 
 Example:
 
@@ -11,4 +11,4 @@ Example:
   $ kill -9 %1
   Killed
 
-Why doesn't 9 report "KILL"?
+Why doesn't the last one report "KILL"?

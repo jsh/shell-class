@@ -10,10 +10,10 @@ chi-squared = Sum[ (observed - expected)^2/expected ]
 
 To make the arithmetic easier, let's expand the range to 0..50, then test for uniformity on the command line.
 
-With 51 buckets, and 2000 per bucket, that means 102000 numbers. There's fifty degrees of freedom, so the expected value is 50, the standard deviation is 10, and you can generate the distribution itself with this command:
+With 51 buckets, and 2000 per bucket, that means 102000 numbers. There's fifty degrees of freedom, so the expected value is 50, the standard deviation is sqrt(2*50) = 10. You can generate a sample distribution with this command:
 
   $ for i in {1..102000}; do echo $((RANDOM%51)); done | sort -n | uniq -c 
 
-Generate the chi-squared of what you see by adding to this pipeline. Try to do it entirely on the command line -- don't put the command in a file until you're done.
+Calculate the chi-squared of what you see by adding to this pipeline. Try to do it entirely on the command line -- don't put the command in a file until you're done.
 
 Hint: look at the documentation for the "read" built-in, with either "man bash" or "help read."

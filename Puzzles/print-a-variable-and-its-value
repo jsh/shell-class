@@ -10,4 +10,4 @@ x is '3'
 (a) Write it using "${!"
 (b) Write it using "declare -n"
 
-Consult the bash man page for these constructs if you don't know them.
+If you don't know "${!" or "declare -n", look them up the bash man page.

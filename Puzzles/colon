@@ -1,4 +1,4 @@
-In early shells, there was no comment character. Instead, folks used this
+In early shells, there was no comment character. Instead, folks used the colon command.
 
   : here is a comment
 
@@ -12,13 +12,8 @@ and this?
 
   : put <filename> here
 
-() This is a comment
-
-  ##### Big comment #####
-
-  Why isn't this?
-
-  ::::: Big Comment :::::
+() Why does there have to be a space between ':' and "put <filename> here"?
+Why doesn't there have to be a space between '#' and "put <filename> here"?
 
 () This is a common idiom. What's it doing?
 
@@ -41,3 +36,11 @@ and this?
   set -x
   : === Kilroy was here
   date
+
+() This is a comment
+
+  ##### Big comment #####
+
+  Why isn't this?
+
+  ::::: Big Comment :::::

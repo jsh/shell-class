@@ -1,4 +1,4 @@
-Paul Nowosielski asks BLUG
+On the Boulder Linux Users Group (BLUG) mailing list, Paul Nowosielski asks
 
   I'm trying to convert all the html files
   into text using lynx. The files are in many directories
@@ -9,6 +9,9 @@ Paul Nowosielski asks BLUG
   and convert the files to text and preserve the base name.
 
   ex: file1.html file1.txt file2.html file2.txt (or something close to this)
+
+Make that "somebody" be you: write the one-liner on the command line.
+(You can be even more useful by giving him a second one-liner to create a test directory full of files to run it on.)
 
 Hint:
 

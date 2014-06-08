@@ -17,3 +17,15 @@ Example:
   Yoda is name my
   good is this
 
+Write an improved version that just puts the last word first
+
+  $ cat <<__EOF__ | worldhello
+
+  
+  my name is Yoda
+  this is better
+
+  __EOF__
+  
+  Yoda my name is
+  better this is

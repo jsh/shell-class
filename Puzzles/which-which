@@ -5,7 +5,7 @@ and a shell built-in, like "type -p". How much difference can the choice make?
 time for i in /usr/bin/*; do which $(basename $i); done > /dev/null
 time for i in /usr/bin/*; do type -p $(basename $i); done > /dev/null
 
-(2) How much overhead does is the loop+print contribute?
+(2) How much overhead does the loop+print contribute?
 time for i in /usr/bin/*; do echo $(basename $i); done > /dev/null
 
 (3) Write your own version of which, entirely in the shell.

@@ -1,16 +1,36 @@
-Write a function to list all your path components, one per line:
+- Write a "listpath" function that lists all your path components, one per line:
 
-Example:
   $ echo $PATH
-  /home/jhaemer/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/jhaemer/bin
+  /home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
   $ listpath
   /home/jhaemer/bin
-  /usr/local/sbin
   /usr/local/bin
-  /usr/sbin
   /usr/bin
-  /sbin
   /bin
   /usr/games
-  /usr/local/games
   /home/jhaemer/bin
+  /usr/local/bin
+  /usr/bin
+  /bin
+  /usr/games
+
+Could this be a script?
+
+- Write a uniqpath script that removes duplicates
+
+  $ echo $PATH
+  /home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:
+  $ uniqpath
+  /home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
+
+Could this be a function?
+    
+- Write a cleanpath function that cleans your path
+
+  $ echo $PATH
+  /home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:/home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games:
+  $ cleanpath
+  $ echo $PATH
+  /home/jhaemer/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
+
+Could this be a script?

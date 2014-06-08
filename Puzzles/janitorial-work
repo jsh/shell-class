@@ -13,3 +13,5 @@ These are directories that hold versions of code built at different times.  Righ
 I'd like to discard all but the two most recent incarnations of each version.  I have no control over the name scheme, and the version numbers will vary.  (The list above has two but there could be more or fewer.)
 
 What's a bash one-liner to do this?
+
+(Don't worry about Y3K problems.)

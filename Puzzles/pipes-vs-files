@@ -28,5 +28,5 @@ Try these, on the command line:
   for i in {1..1000}; do echo $(( RANDOM%2 )); done | grep 0 | wc -l
   for i in {1..1000000}; do echo $(( RANDOM%2 )); done | grep 0 | wc -l
 
-(1) In the last line, how big would the temporary files be?
+(1) In the last line, if you used temporary files instead, how big would they be? (Try it.)
 (2) Do a version with pipes and time it. Then, convert that into a version with temporary files. Time that.

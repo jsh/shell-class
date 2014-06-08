@@ -1,4 +1,6 @@
-Doug Miller asked me what shell questions he could ask a job candidate. I suggested showing candidates this script:
+Doug Miller asked me what shell questions I'd suggest asking a job candidate -- not an expert, just someone who knows the basics.
+
+I suggested showing candidates this script:
 
   #!/bin/bash
   for i in $*; do
@@ -18,4 +20,4 @@ and then asking questions like this:
   (9) Extra credit 2: What single command could you use instead of this script?
   (10) Extra credit 3: Who wrote it?
 
-What questions would you ask?
+What would you ask?

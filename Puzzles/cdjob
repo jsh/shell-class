@@ -1,4 +1,5 @@
-Background jobs are great. What if I need more commands that know about them than the shell gives me out-of-the-box?
+Background jobs are great. But what if I need more commands that know about them than the shell gives me out-of-the-box?
+
 Write a function that does a cd to a numbered job.
 
   $ git clone git@git-server:myproject.git      # check out a mass of code

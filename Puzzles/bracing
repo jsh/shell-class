@@ -1,7 +1,7 @@
 The determined Real Programmer can write FORTRAN programs in any language.
 -- Ed Post, "Real Programmers Don't Use PASCAL."
 
-Rewrite this to use brace expansion:
+The shell is good at handling files and filenames.  Rewrite this to use brace expansion:
 
 file[0]=foo
 file[1]=bar

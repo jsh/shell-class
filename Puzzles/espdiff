@@ -1,2 +1,5 @@
 On Ubuntu, the game /usr/games/espdiff is a shell script. How's it work?
-How would you re-write it to clean it up?
+(If you're running another distro, you may need to install "patchutils".)
+How would you re-write it to clean it up or enhance it?
+
+If you're really pleased with the result, contribute your enhancements. You can find the package maintainer with "man espdiff" .

@@ -23,3 +23,5 @@ Consider the following file:
 - What happens if you do this?
 
   $ bash warn
+
+- How could you use this file?

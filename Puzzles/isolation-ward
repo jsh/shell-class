@@ -1,7 +1,7 @@
 One way to organize a large script is to put pieces into a single directory,
 with a top-level driver to execute or source them.
 
-What command will adjust the path of the top-level script to enable this?
+What command will adjust the path of the top-level script to permit this?
 
 Example:
 
@@ -19,7 +19,7 @@ Example:
   $ /tmp/bs/bigscript
   this is piece 1
   this is piece 2
-  $ pushd /tmp/bs; PATH+=: # and so should no invocation path
+  $ pushd /tmp/bs; PATH+=: # find it in the current directory
   $ bigscript
   this is piece 1
   this is piece 2
