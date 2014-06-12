@@ -5,3 +5,7 @@ shopt -s globstar
 for f in **/*.html; do
   lynx -nolist -dump $f > ${f/.html/.txt}
 done
+
+
+
+Note, here, the use of **, where older scripts might use find(1). Look up globstar in the man page if you are unfamiliar with it.

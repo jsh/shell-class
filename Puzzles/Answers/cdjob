@@ -6,3 +6,6 @@ cdjob() {
   d=$(jobs $1 | perl -lane 'print "cd $1" if m/.*\(wd: (.*)\).*/')
   test "$d" && eval $d
 }
+
+It has to be a function because cd(1) needs to act in the current shell.
+In a script, it would act in a separate, subshell, and return you to your currnt, working directory as soon as the program exited.

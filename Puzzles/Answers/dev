@@ -21,7 +21,7 @@ What are these?
 
 - /dev/null
 
-An always empty file.
+An always empty file, whether read or written.
 
 - /dev/urandom
 
@@ -35,6 +35,7 @@ An endless source of nul bytes.
 
 A full device.
 
+How can you examine their contents?
 
   $ cat specials
   #!/bin/bash

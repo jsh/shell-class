@@ -1,3 +1,5 @@
 Here's one possibility:
 
   $ for i in {1..102000}; do echo $((RANDOM%51)); done | sort -n | uniq -c | while read n i; do (( sum += (n - 2000)**2 )); echo $((sum/2000)); done | tail -1
+
+I usually use awk(1) or cut(1) to split lines into fields, but read(1) will do it, too, and I use that, here.

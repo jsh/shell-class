@@ -1,3 +1,7 @@
 Instead, try this:
 
   $ tr -dc '[:graph:]' < /dev/urandom | head -c 64 | xargs -0
+
+(Note the quotes.)
+
+If you're not familiar with character classes, like [:graph:], look in the bash man page under "Pattern Matching."
