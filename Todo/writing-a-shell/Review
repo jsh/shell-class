@@ -1,0 +1,17 @@
+You understand what a shell is.
+
+A shell's a program that reads a line at a time and does it.
+
+You could write a shell.
+Lots of people do.
+	Paul Falstad wrote zsh as a grad student
+	Chet Ramey maintains bash and did most of it.
+	Ken Almquist wrote ash, which is used in BSD distros. Many embedded-Linux distros use "Debian ash" or "dash." A bunch o' folks wrote tcsh, the "Tenex C-shell."
+	Bill Joy wrote csh as a grad student. He also wrote vi, the first screen editor.
+	Steve Bourne wrote the Bourne shell (/bin/sh) while a DEC employee
+	Ken Thompson wrote Unix in four weeks, while his wife was in California.
+	One week was his sh
+	My mother created jsh in 9 months.
+
+You know how this fits into the OS
+  OS = File tree + Process tree

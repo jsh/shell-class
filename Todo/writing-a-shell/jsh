@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while read i; do
+	( exec $i )
+done
