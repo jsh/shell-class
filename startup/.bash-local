@@ -1,0 +1,5 @@
+#!/bin/bash -eu
+
+for cfg in ~/.bash-{variables,functions,aliases}; do
+ [ -r $cfg ] && source $cfg
+done

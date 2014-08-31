@@ -1,4 +1,7 @@
 # .bash-aliases: my typing conveniences
 
 alias mroe=more	# for Evi
+if $(type -p hub); then
+  alias git=hub
+fi
 
