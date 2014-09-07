@@ -1,7 +1,7 @@
 # .bash-aliases: my typing conveniences
 
 alias mroe=more	# for Evi
-if $(type -p hub); then
+if $(type -p hub > /dev/null); then
   alias git=hub
 fi
 
