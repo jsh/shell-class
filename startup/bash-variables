@@ -23,4 +23,8 @@ shopt -s histappend
 
 ## don't put duplicate lines in the history and ignore same sucessive entries.
 export HISTCONTROL=ignoreboth
-export LOCATE_PATH=~/var/mlocate.db
+
+# use a local mlocate database if we make one
+if [ -r ~/var/mlocate.db ]; then
+  export LOCATE_PATH=~/var/mlocate.db
+fi
