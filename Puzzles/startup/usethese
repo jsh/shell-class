@@ -1,0 +1,12 @@
+#!/bin/bash -eux
+
+cat <<__EOF__ >> ~/.bashrc
+# local mods
+if [ -r ~/.bash-local ]; then
+  source ~/.bash-local
+fi
+__EOF__
+
+for i in bash-{aliases,functions,local,variables}; do
+  ln $i ~/.$i
+done
