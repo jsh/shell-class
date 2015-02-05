@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [[ ${USER} != "root" ]]; then
+    echo
+    echo
+    echo "Only listing ports that user \"${USER}\" has access to, run as root if all ports are needed"
+    echo
+else
+    echo
+    echo
+fi
+
+OPENPORTS=$( netstat -an | grep "^tcp" | grep " LISTEN" | awk ' { print $4 } ' | awk -F":" ' { print $NF } ' | sort -n | uniq )
+
+#OPENPORTS="22"
+
+for PORT in ${OPENPORTS}; do
+    LSOF=$(lsof -i :${PORT})
+    if [[ "${LSOF}" != "" ]]; then
+        echo "---------------------------------------------------"
+        echo "LISTEN PORT: ${PORT}"
+        LSOF_PIDS=$( echo "${LSOF}" | awk ' { print $2 } ' | grep -v "PID" | sort -n | uniq | tr "\n" " " )
+        echo "${LSOF}" | awk ' { print "\t"$0 } '
+        echo
+        echo "Process information:" | awk ' { print "\t"$0 } '
+        for LSOF_PID in ${LSOF_PIDS}; do
+            ps -ef | awk -v LSOF_PID="${LSOF_PID}" ' $2==LSOF_PID ' | awk ' { print "\t"$0 } '
+        done
+        echo
+    fi
+done
+
