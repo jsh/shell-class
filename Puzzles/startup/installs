@@ -1,0 +1,16 @@
+#!/bin/bash -eu
+
+cd
+if ! [ -f .exrc ]; then
+  echo set autowrite > .exrc; ln !$ .vimrc
+fi
+
+if ! [ -f .ssh/id_rsa.pub ]; then
+  ssh-keygen
+fi
+
+git clone git@github.com:jsh/shell-class
+git config --global user.name "Jeffrey S. Haemer"
+git config --global user.email "jeffrey.haemer@gmail.com"
+pushd shell-class/Puzzles/startup
+./usethese; source ~/.bashrc
